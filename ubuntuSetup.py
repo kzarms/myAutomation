@@ -8,6 +8,7 @@ packages = """
 net-tools wget git xclip
 software-properties-common apt-transport-https
 python3-pip
+apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 chrome-gnome-shell
 """
 for item in packages.split():
@@ -75,6 +76,31 @@ def MSTeams():
   subprocess.Popen(("rm " + teams), shell=True)
   print(CGREEN + "MS Teams installed successfully" + CEND)
 
+def Docker():
+  CGREEN  = '\33[32m'
+  CEND = '\033[0m'
+  #   https://docs.docker.com/engine/install/ubuntu/
+  #Add key
+  p = subprocess.Popen("wget -q https://download.docker.com/linux/ubuntu/gpg -O- | apt-key add -", shell=True)
+  p.wait()
+  print(CGREEN + "Docker key has been added" + CEND)
+  #Add repo
+  command = 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
+  #command = 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+  p = subprocess.Popen(command, shell=True)
+  p.wait()
+  print(CGREEN + "Docker repository has been added" + CEND)
+  #Install docker
+  p = subprocess.Popen("apt update", shell=True)
+  p.wait()
+  p = subprocess.Popen("apt install docker-ce docker-ce-cli containerd.io -y", shell=True)
+  p.wait()
+  print(CGREEN + "Docker has been installed" + CEND)
+  
+  #Add user to the group  
+  p = subprocess.Popen("usermod -aG docker $USER", shell=True)
+  p.wait()
+
 def sshKeys(myMail):
   CGREEN  = '\33[32m'
   CEND = '\033[0m'
@@ -90,3 +116,4 @@ myinstall(packages)
 #VScode()
 #MSTeams()
 #extensions()
+Docker()
