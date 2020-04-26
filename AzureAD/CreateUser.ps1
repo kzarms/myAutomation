@@ -48,26 +48,19 @@ function CreateUserMailExt($FirstName, $LastName){
     $Result = $FirstName.trim() + "." + $LastName.trim() + "_ext"
     #Remove non ASCII symbols and make it lover cases
     $Result = ([Text.Encoding]::ASCII.GetString([Text.Encoding]::GetEncoding("Cyrillic").GetBytes($Result))).ToLower()
+    #Remove spaces in between for complex LastNames
+    $Result = $Result -replace " ",""
     return $Result
 }
 function CheckADUser($UserName){
     #Return Azure Uuser object if user exists and 0 if not
+    Get-AzADUser -UserPrincipalName foo@domain.com
+    Set-AzureADUserManager
+    
     return 0
 }
 #endregion
-#region tests
-Describe 'Basic Pester Tests' {
-    Context 'Test CreateUserDisplayName function' {
-        It 'OK' { CreateUserDisplayName -FirstName "Alice" -LastName "Boris" | Should -Be "Alice Boris (External RAS/VDI)" }
-        It 'OK' { CreateUserDisplayName -FirstName " Alice" -LastName " Boris " | Should -Be "Alice Boris (External RAS/VDI)" } 
-        It 'OK' { CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -Be "Alice Böris (External RAS/VDI)" }
-        It 'Fail' { CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -Not -Be "Alice Boris (External RAS/VDI)" }  
-      }
-      Context 'Test CreateUserMailExt function' {
-        #Can not cher for different cases   
-        It 'OK' { CreateUserMailExt -FirstName "Alice" -LastName "Boris" | Should -Be "alice.boris_ext" }
-        It 'OK' { CreateUserMailExt -FirstName "Alice" -LastName "Böris" | Should -Be "alice.boris_ext" }
-        It 'Fail' { CreateUserMailExt -FirstName "Alice" -LastName "Boris" | Should -Not -Be "alice.böris_ext" }
-      }
-}
-#end region
+#region execution
+$PSVersionTable
+Write-Output "Hello world"
+#endregion
