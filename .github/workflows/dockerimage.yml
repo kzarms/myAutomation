@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+    - master
+
+jobs:
+  build:
+    name: Test PowerShell in docker
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Display the path
+      run: echo ${env:PATH}
+      shell: pwsh
+    - name: Build the Docker image
+      run: docker build . --file AzureAD/Dockerfile --tag my-image-name:$(date +%s)
