@@ -11,11 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Display the path
-      run: echo ${pws}
+    - name: Display date and time
+      run: Get-Date
       shell: pwsh
     - name: Build the Docker image
-      run: docker build -t azuread/pester-runner --file ./AzureAD/Dockerfile
+      run: docker-compose run --rm azuread
+      #run: docker build --file ./AzureAD/Dockerfile #-t azuread/pester-runner 
       #run: docker build . --file AzureAD/Dockerfile --tag test-azuread:$(date +%s)
-    - name: Run tests in the Docker image
-      run: docker run -it --rm -v ${pwd}:/test azuread/pester-runner
+    - name: Display date and time
+      run: Get-Date
+      shell: pwsh
+      #run: docker run -it --rm -v ${pwd}:/test azuread/pester-runner
