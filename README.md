@@ -1,6 +1,8 @@
 # myAutomation
 This is my personal repository.
 Initial intention to save config setup for Ubuntu machines and Windows Machines i use
+[![Actions Status](https://github.com/kzarms/myAutomation/workflows/pstest/badge.svg)](https://github.com/kzarms/myAutomation/actions)
+
 
 `
 sudo python3 ubuntuSetup.py
