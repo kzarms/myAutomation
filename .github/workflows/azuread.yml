@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Pull the source code.
+      uses: actions/checkout@v2
 
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
-      
+
     - name: Run Pester
-      run: Invoke-Pester AzureAD/.
+      run: Invoke-Pester -EnableExit -Script AzureAD/. 
       shell: pwsh
 
