@@ -33,7 +33,7 @@ Describe "Basic user Display name and Mail address tests" {
             CreateUserMailExt -FirstName "Alice" -LastName " Boris Jonson" | Should -Be "alice.borisjonson_ext"
             }
         It "Mail address with special cahrs" {
-            CreateUserMailExt -FirstName "Alice" -LastName "Baris" | Should -Be "alice.boris_ext"
+            CreateUserMailExt -FirstName "Alice" -LastName "Boris" | Should -Be "alice.boris_ext"
             }
         It "Fail Mail address with apper cahrs" {
             CreateUserMailExt -FirstName "Alice" -LastName "Boris" | Should -Not -BeExactly "alice.Boris_ext"
