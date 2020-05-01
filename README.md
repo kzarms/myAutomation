@@ -1,7 +1,7 @@
 # myAutomation
 This is my personal repository.
 Initial intention to save config setup for Ubuntu machines and Windows Machines i use
-[![Actions Status](https://github.com/kzarms/myAutomation/workflows/pstest/badge.svg)](https://github.com/kzarms/myAutomation/actions)
+[![Actions Status](https://github.com/kzarms/myAutomation/workflows/AzureAD/badge.svg)](https://github.com/kzarms/myAutomation/actions)
 
 
 `

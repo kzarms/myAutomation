@@ -12,9 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
+      
     - name: Run Pester
       run: Invoke-Pester AzureAD/.
       shell: pwsh
