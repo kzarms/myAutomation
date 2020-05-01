@@ -18,7 +18,7 @@ jobs:
       run: Get-Location
       shell: pwsh
     - name: Get list of files
-      run: Get-ChildItem (Get-Location).Path
+      run: Get-ChildItem ../
       shell: pwsh
     #- name: Build the Docker image
       #run: docker-compose run --rm azuread
@@ -28,6 +28,6 @@ jobs:
       run: Install-Module Pester -Force
       shell: pwsh
     - name: Run Pester
-      run: Invoke-Pester (Get-Location).Path
+      run: Invoke-Pester ../
       shell: pwsh
       #run: docker run -it --rm -v ${pwd}:/test azuread/pester-runner
