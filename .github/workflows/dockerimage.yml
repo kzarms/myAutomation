@@ -17,12 +17,16 @@ jobs:
     - name: Get current location for Powershell
       run: Get-Location
       shell: pwsh
-    - name: Get location bash
-      run: ls
+    - name: Get list of files
+      run: dir
+      shell: pwsh
     #- name: Build the Docker image
       #run: docker-compose run --rm azuread
       #run: docker build --file ./AzureAD/Dockerfile #-t azuread/pester-runner 
       #run: docker build . --file AzureAD/Dockerfile --tag test-azuread:$(date +%s)
+    - name: Run Pester
+      run: Invoke-Pester
+      shell: pwsh
     - name: Install Pester
       run: Install-Module Pester -Force
       shell: pwsh
