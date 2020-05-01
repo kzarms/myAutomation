@@ -15,7 +15,7 @@ jobs:
       run: echo ${env:PATH}
       shell: pwsh
     - name: Build the Docker image
-      run: docker build -t azuread/pester-runner ./AzureAD
+      run: docker build . -t azuread/pester-runner --file AzureAD/Dockerfile
       #run: docker build . --file AzureAD/Dockerfile --tag test-azuread:$(date +%s)
     - name: Run tests in the Docker image
       run: docker run -it --rm -v ${pwd}:/test azuread/pester-runner
