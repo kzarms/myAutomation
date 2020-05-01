@@ -5,3 +5,19 @@ Initial intention to save config setup for Ubuntu machines and Windows Machines 
 `
 sudo python3 ubuntuSetup.py
 `
+
+## WorkWithPester and docker
+
+Manual execution in AzureAD
+`
+docker build -t azuread/pester-runner .
+docker run -it --rm -v ${pwd}:/test azuread/pester-runner
+`
+
+Run from docker-compose:
+`
+docker-compose up
+docker-compose run azuread
+#Retur exit code
+docker-compose up --exit-code-from azuread
+`

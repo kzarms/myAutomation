@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  azuread:
+    build: './AzureAD'
+    volumes:
+      - ./AzureAD:/test
