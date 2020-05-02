@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Pull the source code.
+    - id: step1
+      name: Pull the source code.
       uses: actions/checkout@v2
 
     - name: Install Static Code analysis module
@@ -23,8 +24,9 @@ jobs:
       shell: pwsh
 
     - name: Install Microsoft Graph module
-      run: Install-Module Microsoft.Graph -Force
+      run: Install-Module Microsoft.Graph -Force -ErrorAction SilentlyContinue
       shell: pwsh
+      if: succeeded() || failed()
 
     - name: Install Pester module
       run: Install-Module Pester -Force
