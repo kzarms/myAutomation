@@ -14,12 +14,16 @@ jobs:
     - name: Pull the source code.
       uses: actions/checkout@v2
 
-    - name: Install Pester module
-      run: Install-Module Pester -Force
+    - name: Install Static Code analysis module
+      run: Install-Module PSScriptAnalyzer -Force
       shell: pwsh
 
     - name: Static Code analysis
       run: Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary -EnableExit
+      shell: pwsh
+
+    - name: Install Pester module
+      run: Install-Module Pester -Force
       shell: pwsh
 
     - name: Unit tests analysis
