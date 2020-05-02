@@ -31,6 +31,7 @@ jobs:
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
+      if: succeeded() || failed()
 
     - name: Unit tests analysis
       run: Invoke-Pester -EnableExit -Script AzureAD/
