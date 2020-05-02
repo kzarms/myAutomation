@@ -15,8 +15,8 @@ Param(
     )
 
 if($TestMode){
-    Write-Host "Test mode"
-    Write-Host "Name is:" $FirstName $LastName
+    Write-Output "Test mode"
+    Write-Output ("Name is: " + $FirstName + " " + $LastName)
     Pause
     Exit
 }
