@@ -11,13 +11,13 @@ To run unit tests you need to instal Pester on our device
     Update-Module Pester -Force
 
 .Parameter cmd
-    This parameter accept command line execution. 
+    This parameter accept command line execution.
     This example creates an AD user in Azure AD
-    
-    .\CreateUser.ps1 - 
 
-    
-    Run the tests for the script 
+    .\CreateUser.ps1 -
+
+
+    Run the tests for the script
 
     Invoke-Pester ".\CreateUser.ps1"
 #>
@@ -27,7 +27,7 @@ To run unit tests you need to instal Pester on our device
 Param(
 [Parameter(Mandatory=$False)]
    [string]$FirstName = "",
-   [string]$LastName = "",   
+   [string]$LastName = "",
    [string]$JobTitle = "",
    [string]$UserType = "",
    [string]$Manager = "",
@@ -56,7 +56,6 @@ function CheckADUser($UserName){
     #Return Azure Uuser object if user exists and 0 if not
     Get-AzADUser -UserPrincipalName foo@domain.com
     Set-AzureADUserManager
-    
     return 0
 }
 #endregion

@@ -12,6 +12,14 @@ sudo python3 ubuntuSetup.py
 ## AzureAD
 [![Actions Status](https://github.com/kzarms/myAutomation/workflows/AzureAD/badge.svg)](https://github.com/kzarms/myAutomation/actions)
 This module is for user creation in AzureAD.
+
+Manual code check
+```
+Invoke-ScriptAnalyzer -Path AzureAD/  -ReportSummary
+Invoke-Pester -Script AzureAD/
+```
+
+
 Support, docker execution with powerhsell 7
 
 ```

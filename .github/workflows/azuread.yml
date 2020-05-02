@@ -18,7 +18,11 @@ jobs:
       run: Install-Module Pester -Force
       shell: pwsh
 
-    - name: Run Pester
-      run: Invoke-Pester -EnableExit -Script AzureAD/. 
+    - name: Static Code analysis
+      run: Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary -EnableExit
+      shell: pwsh
+
+    - name: Unit tests analysis
+      run: Invoke-Pester -EnableExit -Script AzureAD/
       shell: pwsh
 
