@@ -22,6 +22,10 @@ jobs:
       run: Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary -EnableExit
       shell: pwsh
 
+    - name: Install Microsoft Graph module
+      run: Install-Module Microsoft.Graph
+      shell: pwsh
+
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
