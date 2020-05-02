@@ -20,6 +20,16 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . $scriptRoot\$sut -FirstName $FirstName -LastName $LastName -TestMode $TestMode
 #. $scriptRoot\$sut
 
+#Module describe
+$myDynamicModule = New-Module -Name MyDynamicModule {
+    function Get-MgUser {}
+    function Get-MgDomain {}
+    Export-ModuleMember -Function *
+}
+
+# import the dynamic module
+$myDynamicModule | Import-Module -Force
+
 #region tests
 Describe "Basic user Display name and Mail address tests" {
     Context "Test CreateUserDisplayName function" {
@@ -61,6 +71,15 @@ Describe "Basic user Display name and Mail address tests" {
 
 Describe "MS Graph functions check" {
     Context "Test CheckDomain function" {
+        It "Get proper dev domain" {
+            Mock Get-MgDomain {
+                [PSCustomObject]@{Id='azure.onmicrosoft.com'},
+                [PSCustomObject]@{Id='devzooplus.com'},
+                [PSCustomObject]@{Id='devzooplus.onmicrosoft.com'}
+                }
+
+            CheckDomain | Should -Be "devzooplus.com"
+        }
         It "Get proper dev domain" {
             Mock Get-MgDomain {
                 [PSCustomObject]@{Id='azure.onmicrosoft.com'},

@@ -23,14 +23,14 @@ jobs:
       run: Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary -EnableExit
       shell: pwsh
 
-    - name: Install Microsoft Graph module
-      run: Install-Module Microsoft.Graph -Force -ErrorAction SilentlyContinue
-      shell: pwsh
+    #- name: Install Microsoft Graph module
+    #  run: Install-Module Microsoft.Graph -Force -ErrorAction SilentlyContinue
+    #  shell: pwsh
 
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
-      if: ${{ success() || failure() }}
+    #  if: ${{ success() || failure() }}
 
     - name: Unit tests analysis
       run: Invoke-Pester -EnableExit -Script AzureAD/
