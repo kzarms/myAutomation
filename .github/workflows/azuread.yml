@@ -23,7 +23,7 @@ jobs:
       shell: pwsh
 
     - name: Install Microsoft Graph module
-      run: Install-Module Microsoft.Graph
+      run: Install-Module Microsoft.Graph -Force
       shell: pwsh
 
     - name: Install Pester module
