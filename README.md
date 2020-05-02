@@ -15,7 +15,7 @@ This module is for user creation in AzureAD.
 
 Manual code check
 ```
-Invoke-ScriptAnalyzer -Path AzureAD/  -ReportSummary
+Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary
 Invoke-Pester -Script AzureAD/
 ```
 
