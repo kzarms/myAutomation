@@ -26,12 +26,11 @@ jobs:
     - name: Install Microsoft Graph module
       run: Install-Module Microsoft.Graph -Force -ErrorAction SilentlyContinue
       shell: pwsh
-      if: succeeded() || failed()
 
     - name: Install Pester module
       run: Install-Module Pester -Force
       shell: pwsh
-      if: succeeded() || failed()
+      if: ${{ success() || failure() }}
 
     - name: Unit tests analysis
       run: Invoke-Pester -EnableExit -Script AzureAD/
