@@ -1,3 +1,4 @@
+<#
 [CmdletBinding()]
 
 Param(
@@ -13,7 +14,8 @@ Param(
     [string]$OfficeLocation = "",
     [switch]$TestMode
     )
-
+#>
+$TestMode = 0
 if($TestMode){
     Write-Output "Test mode"
     Write-Output ("Name is: " + $FirstName + " " + $LastName)
