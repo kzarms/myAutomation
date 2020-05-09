@@ -34,19 +34,22 @@ $myDynamicModule | Import-Module -Force
 Describe "Basic user Display name and Mail address tests" {
     Context "Test CreateUserDisplayName function" {
         It "DisplayName basig generation" {
-            CreateUserDisplayName -FirstName "Alice" -LastName "Boris" | Should -Be "Alice Boris (External RAS/VDI)"
+            CreateUserDisplayName -FirstName "Alice" -LastName "Boris" | Should -BeExactly "Alice Boris (External RAS/VDI)"
         }
         It "DisplayName with spaces" {
-            CreateUserDisplayName -FirstName " Alice" -LastName " Boris " | Should -Be "Alice Boris (External RAS/VDI)"
+            CreateUserDisplayName -FirstName " Alice" -LastName " Boris " | Should -BeExactly "Alice Boris (External RAS/VDI)"
             }
         It "DisplayName with spaces in between" {
-            CreateUserDisplayName -FirstName " Alice" -LastName " Boris Jonson" | Should -Be "Alice Boris Jonson (External RAS/VDI)"
+            CreateUserDisplayName -FirstName " Alice" -LastName " Boris Jonson" | Should -BeExactly "Alice Boris Jonson (External RAS/VDI)"
+            }
+        It "DisplayName with lower cases" {
+            CreateUserDisplayName -FirstName " alice" -LastName "boris" | Should -BeExactly "Alice Boris (External RAS/VDI)"
             }
         It "DisplayName with special charts" {
-            CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -Be "Alice Böris (External RAS/VDI)"
+            CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -BeExactly "Alice Böris (External RAS/VDI)"
             }
         It "Fail test Wrong creation" {
-            CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -Not -Be "Alice Boris (External RAS/VDI)"
+            CreateUserDisplayName -FirstName "Alice " -LastName "Böris" | Should -Not -BeExactly "Alice Boris (External RAS/VDI)"
             }
       }
       Context 'Test CreateUserMailExt function' {
@@ -58,10 +61,10 @@ Describe "Basic user Display name and Mail address tests" {
             CreateUserMailExt -FirstName "Alice" -LastName " Boris" | Should -BeExactly "alice.boris_ext"
             }
         It "Mail address with spaces in between" {
-            CreateUserMailExt -FirstName "Alice" -LastName " Boris Jonson" | Should -Be "alice.borisjonson_ext"
+            CreateUserMailExt -FirstName "Alice" -LastName " Boris Jonson" | Should -BeExactly "alice.borisjonson_ext"
             }
         It "Mail address with special cahrs" {
-            CreateUserMailExt -FirstName "Alice" -LastName "Böris" | Should -Be "alice.boris_ext"
+            CreateUserMailExt -FirstName "Alice" -LastName "Böris" | Should -BeExactly "alice.boris_ext"
             }
         It "Fail Mail address with apper cahrs" {
             CreateUserMailExt -FirstName "Alice" -LastName "Boris" | Should -Not -BeExactly "alice.Boris_ext"

@@ -43,7 +43,9 @@ Param(
 #region functions
 function CreateUserDisplayName($FirstName, $LastName){
     #Create Display name + additional description
-    $Result = $FirstName.trim() + " " + $LastName.trim() + " (External RAS/VDI)"
+    $TextInfo = (Get-Culture).TextInfo
+    $Result = $textInfo.ToTitleCase($FirstName.trim()) + " " + `
+        $textInfo.ToTitleCase($LastName.trim()) + " (External RAS/VDI)"
     return $Result
 }
 function CreateUserMailExt($FirstName, $LastName){
