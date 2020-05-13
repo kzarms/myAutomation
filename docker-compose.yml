@@ -1,7 +1,18 @@
 version: '3'
 
 services:
-  azuread:
-    build: './AzureAD'
+  #azuread:
+  #  build: './AzureAD'
+  #  volumes:
+  #    - ./AzureAD:/test
+  monitoring:
+    image: "checkmk/check-mk-raw:1.6.0-latest"
+    ports: 8080:5000
     volumes:
-      - ./AzureAD:/test
+      - monitoring:/omd/sites
+      - etc/localtime:/etc/localtime:ro
+    ulimits:
+      nofile:
+        soft: "1024"
+    tmpfs: "/opt/omd/sites/cmk/tmp:uid=1000,gid=1000"
+    restart: always
