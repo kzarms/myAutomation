@@ -45,7 +45,7 @@ def extensions():
 def VScode():
   CGREEN  = '\33[32m'
   CEND = '\033[0m'
-  
+
   p = subprocess.Popen("wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -", shell=True)
   p.wait()
   print(CGREEN + "Key has been added" + CEND)
@@ -53,7 +53,7 @@ def VScode():
   p = subprocess.Popen('add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"', shell=True)
   p.wait()
   print(CGREEN + "MS repository has been added"+  CEND)
-  
+
   p = subprocess.Popen("apt update", shell=True)
   p.wait()
   p = subprocess.Popen("apt install code", shell=True)
@@ -96,10 +96,16 @@ def Docker():
   p = subprocess.Popen("apt install docker-ce docker-ce-cli containerd.io -y", shell=True)
   p.wait()
   print(CGREEN + "Docker has been installed" + CEND)
-  
-  #Add user to the group  
+
+  #Add user to the group
   p = subprocess.Popen("usermod -aG docker $USER", shell=True)
   p.wait()
+  #Download docker-compose
+  # sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  # sudo chmod +x /usr/local/bin/docker-compose
+  #p = subprocess.Popen("wget -q https://download.docker.com/linux/ubuntu/gpg -O- | apt-key add -", shell=True)
+  #p.wait()
+  #print(CGREEN + "Docker key has been added" + CEND)
 
 def Jenkins():
   CGREEN  = '\33[32m'
@@ -120,15 +126,15 @@ def Jenkins():
   p = subprocess.Popen("apt install jenkins -y", shell=True)
   p.wait()
   print(CGREEN + "Jenkins has been installed" + CEND)
-  
-  #Add user to the group  
+
+  #Add user to the group
   p = subprocess.Popen("usermod -aG docker $USER", shell=True)
   p.wait()
 
 def sshKeys(myMail):
   CGREEN  = '\33[32m'
   CEND = '\033[0m'
-  
+
   if not myMail:
     myMail = input('Enter your email:')
   cmd = 'ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "' + myMail + '" -q -N ""'
