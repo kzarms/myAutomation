@@ -1,16 +1,15 @@
 import subprocess
-import webbrowser
-
+#import webbrowser
 
 subprocess.Popen("lsb_release -a", shell=True)
 #Set packet lists
-packages = """
-net-tools wget git xclip
-software-properties-common apt-transport-https
-python3-pip
-apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-chrome-gnome-shell
-"""
+#General packages
+packages = "net-tools wget git xclip sshpass"
+#Add pip3 install
+packages += " " + "python3-pip"
+#Add docker dependencies
+#packages += " " + "apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
+
 for item in packages.split():
   print(item)
 
@@ -22,25 +21,23 @@ def myinstall(packages):
   CGREEN  = '\33[32m'
   CEND = '\033[0m'
 
-  apt = "apt "
-  ins = "install "
-  #packages = "net-tools"
   print(CGREEN + "[+] Installation of the ubuntu packages is starting:" + CEND)
-  #color.print_green("[+] Installation of the ubuntu packages is starting:")
+  #Loop for all packages in the list
   for item in packages.split():
-    command = str(apt) + str(ins) + str(item) + " -y"
-    #process = subprocess.run(command)
+    command = "apt install " + str(item) + " -y"
     p = subprocess.Popen(command, shell=True)
     p.wait()
-    print(CGREEN + "\t[+] Package [{}] Installed".format(str(item)) + CEND)
+    print(CGREEN + f"\t[+] Package [{item}] Installed" + CEND)
 
-def extensions():
+  print(CGREEN + "[+] Installation of the ubuntu packages has been completed" + CEND)
+
+#def extensions():
   #bing
-  url = "https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/"
-  webbrowser.get('firefox').open_new_tab(url)
+#  url = "https://extensions.gnome.org/extension/1262/bing-wallpaper-changer/"
+#  webbrowser.get('firefox').open_new_tab(url)
 
-  url = "https://extensions.gnome.org/extension/750/openweather/"
-  webbrowser.get('firefox').open_new_tab(url)
+# url = "https://extensions.gnome.org/extension/750/openweather/"
+# webbrowser.get('firefox').open_new_tab(url)
 
 def VScode():
   CGREEN  = '\33[32m'
@@ -100,6 +97,36 @@ def Docker():
   #Add user to the group
   p = subprocess.Popen("usermod -aG docker $USER", shell=True)
   p.wait()
+  #Download docker-compose
+  # sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  # sudo chmod +x /usr/local/bin/docker-compose
+  #p = subprocess.Popen("wget -q https://download.docker.com/linux/ubuntu/gpg -O- | apt-key add -", shell=True)
+  #p.wait()
+  #print(CGREEN + "Docker key has been added" + CEND)
+
+def Jenkins():
+  CGREEN  = '\33[32m'
+  CEND = '\033[0m'
+  #   https://www.jenkins.io/doc/book/installing/#linux
+  #Add key
+  p = subprocess.Popen("wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -", shell=True)
+  p.wait()
+  print(CGREEN + "Jenkins key has been added" + CEND)
+  #Add repo
+  command = 'add-apt-repository "deb https://pkg.jenkins.io/debian binary/"'
+  p = subprocess.Popen(command, shell=True)
+  p.wait()
+  print(CGREEN + "Jenkins repository has been added" + CEND)
+  #Install docker
+  p = subprocess.Popen("apt update", shell=True)
+  p.wait()
+  p = subprocess.Popen("apt install jenkins -y", shell=True)
+  p.wait()
+  print(CGREEN + "Jenkins has been installed" + CEND)
+
+  #Add user to the group
+  p = subprocess.Popen("usermod -aG docker $USER", shell=True)
+  p.wait()
 
 def sshKeys(myMail):
   CGREEN  = '\33[32m'
@@ -116,4 +143,5 @@ myinstall(packages)
 #VScode()
 #MSTeams()
 #extensions()
-Docker()
+#Docker()
+#Jenkins()
