@@ -1,2 +1,6 @@
 Dockerfile.test
 samples.*
+*.tfvars
+*.tfstate
+*.tfstate.backup
+.terraform/

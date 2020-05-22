@@ -36,3 +36,13 @@ docker-compose run --rm azuread
 #Retur exit code
 docker-compose up --exit-code-from azuread
 ```
+
+#Terraform
+
+```
+terraform init
+terraform plan
+terraform apply -auto-approve
+
+terraform destroy
+```

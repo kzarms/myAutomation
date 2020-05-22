@@ -2,6 +2,7 @@ import subprocess
 #import webbrowser
 
 subprocess.Popen("lsb_release -a", shell=True)
+
 #Set packet lists
 #General packages
 packages = "net-tools wget git xclip sshpass"
