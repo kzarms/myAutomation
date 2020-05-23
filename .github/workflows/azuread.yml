@@ -2,7 +2,7 @@ name: AzureAD
 
 on:
   push:
-    branches: 
+    branches:
     - master
 
 jobs:
@@ -36,3 +36,15 @@ jobs:
       run: Invoke-Pester -EnableExit -Script AzureAD/
       shell: pwsh
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: pstest
+    steps:
+    - name: Get repo
+      uses: actions/checkout@v2
+
+    - name: Install Ansible Lint
+      run: apt install ansible-lint -y
+
+    - name: Lint Ansible Playbook
+      run: ansible-lint book.yaml -v
