@@ -44,7 +44,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Ansible Lint
-      run: apt install ansible-lint -y
+      run: sudo apt install ansible-lint -y
 
     - name: Lint Ansible Playbook
       run: ansible-lint book.yaml -v
