@@ -47,4 +47,4 @@ jobs:
       run: sudo apt install ansible-lint -y
 
     - name: Lint Ansible Playbook
-      run: ansible-lint book.yaml -v
+      run: ansible-lint aws/book.yaml
