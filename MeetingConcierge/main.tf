@@ -18,7 +18,7 @@ resource "random_integer" "suffix" {
   max = 9999
 }
 variable "solution" {
-  default = "MySolution"
+  default = "LabMeetingConcierge"
   description = "The name of the solution"
 }
 variable "location" {
@@ -35,26 +35,23 @@ variable "tags" {
         service ="MeetingConcierge"
     }
 }
-
+#Connection to the Azure RM
 provider "azurerm" {
   version = "=2.0.0"
 
   features {}
 
-  #Connection to the Azure RM
   subscription_id = var.subscription_id
   client_id       = var.client_id
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
 }
-
-#Resources
+#Resources, create a RG as MeetingConciergeXXXX
 resource "azurerm_resource_group" "rg" {
   name     = "${var.solution}${random_integer.suffix.result}"
   location = var.location
   tags = var.tags
 }
-
 resource "azurerm_storage_account" "storage" {
   name                     = "${lower(var.solution)}${random_integer.suffix.result}"
   resource_group_name      = azurerm_resource_group.rg.name
@@ -65,7 +62,6 @@ resource "azurerm_storage_account" "storage" {
 
   tags = var.tags
 }
-
 resource "azurerm_storage_table" "meetings" {
   name                 = "meetings"
   storage_account_name = azurerm_storage_account.storage.name
@@ -74,6 +70,61 @@ resource "azurerm_storage_table" "roomlist" {
   name                 = "roomlist"
   storage_account_name = azurerm_storage_account.storage.name
 }
+resource "azurerm_logic_app_workflow" "RoomBooking" {
+  name                = "Room1-Booking"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+resource "azurerm_logic_app_trigger_custom" "example" {
+  name         = "NewEvent"
+  logic_app_id = azurerm_logic_app_workflow.RoomBooking.id
+
+  body = <<BODY
+  {
+    "recurrence": {
+      "frequency": "Minute",
+      "interval": 3,
+      "timeZone": "W. Europe Standard Time"
+    },
+    "splitOn": "@triggerBody()?['value']",
+    "type": "ApiConnection",
+    "inputs": {
+      "host": {
+        "connection": {
+          "name": "@parameters('$connections')['Replaceoffice365Replace']['connectionId']"
+        }
+      },
+      "method": "get",
+      "path": "/datasets/calendars/v3/tables/@{encodeURIComponent(encodeURIComponent('AAMkAGRmYjNlNjA3LWU4YTgtNDI2OS1iNTYyLTQ4NjAxMjYxNmU5ZgBGAAAAAACgJfmJRx6JQ5JluMCgvJexBwCAIU6qd3oET6pgS3LIim63AAAAAAEGAACAIU6qd3oET6pgS3LIim63AADRZzN5AAA='))}/onnewitems"
+    },
+    "description": "When a new calendar event v3"
+  }
+  BODY
+
+}
+resource "azurerm_logic_app_action_custom" "example" {
+  name         = "example-action"
+  logic_app_id = azurerm_logic_app_workflow.RoomBooking.id
+
+  body = <<BODY
+  {
+    "description": "A variable to configure the auto expiration age in days. Configured in negative number. Default is -30 (30 days old).",
+    "inputs": {
+        "variables": [
+            {
+                "name": "ExpirationAgeInDays",
+                "type": "Integer",
+                "value": -30
+            }
+        ]
+    },
+    "runAfter": {},
+    "type": "InitializeVariable"
+  }
+  BODY
+
+}
+
 
 #Output
 output "Name" {
