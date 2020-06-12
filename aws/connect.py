@@ -1,65 +1,80 @@
 import boto3
 
-#Test connection with boto3
-#iam = boto3.client('iam')
-#paginator = iam.get_paginator('list_users')
-#for response in paginator.paginate():
-#    print(response)
-
 client = boto3.client('connect')
-
-
-response = client.list_phone_numbers()
-print(response)
-
+myInstance = "2321c696-e1cd-43e4-99b2-1d0baa2e6751"
+#Print user list
+#Get responce from the API
 response = client.list_users(
-    InstanceId='2321c696e1cd43e499b21d0baa2e6751'
+    InstanceId = myInstance
 )
-print(response)
-"""
+#Print results from the responce
+for user in response['UserSummaryList']:
+    print(user['Username'])
 
-
-client = boto3.client('chime')
-
-client.c
-
-AccountName = "CallCenter3105"
-#Create main account
-response = client.create_account(
-    Name='CallCenter3105'
+#
+#Get contact flows information
+response = client.list_contact_flows(
+    InstanceId = myInstance
 )
-print(response)
-AccountID = response["Account"]["AwsAccountId"]
+#Print name resutls with type
+for item in response['ContactFlowSummaryList']:
+    print(item['Name'], item['ContactFlowType'])
 
-
-response = client.associate_phone_number_with_user(
-    AccountId=AccountID,
-    UserId='string',
-    E164PhoneNumber='string'
+#Get phone numbers list per country
+response = client.list_phone_numbers(
+    InstanceId=myInstance,
+    PhoneNumberTypes=['DID']
 )
+for item in response['PhoneNumberSummaryList']:
+    print(item['PhoneNumberCountryCode'], item['PhoneNumber'])
 
-#Create Users
+#List of security profiles
+response = client.list_security_profiles(
+    InstanceId=myInstance,
+)
+for item in response['SecurityProfileSummaryList']:
+    print(item['Id'], item['Name'])
 
+#List of routing profiles
+response = client.list_routing_profiles(
+    InstanceId=myInstance,
+)
+for item in response['RoutingProfileSummaryList']:
+    print(item['Id'], item['Name'])
+
+#Create user in the connect
 response = client.create_user(
-    AccountId=AccountID,
-    Username='user1',
-    Email='me@ikot.eu',
-    UserType='PrivateUser'
-)
-
-
-response = client.invite_users(
-    AccountId=AccountID,
-    UserEmailList=[
-        'ikotpad@gmail.com',
+    Username='testsdk1106',
+    Password='MyP@ssw0rd!',
+    IdentityInfo={
+        'FirstName': 'Test',
+        'LastName': 'UserSDK'
+    },
+    PhoneConfig={
+        'PhoneType': 'SOFT_PHONE',
+        'AutoAccept': False,
+        'AfterContactWorkTimeLimit': 600
+    },
+    SecurityProfileIds=[
+        '96fb0927-97e1-4a30-a2b7-d874f0ebcfad'
     ],
-    UserType='PrivateUser'
+    RoutingProfileId='306bb995-41c4-436a-bbdb-c4a7658d06d8',
+    InstanceId=myInstance,
+    Tags={
+        'CostCenter': '12345',
+        'Env': 'Dev'
+    }
 )
+#Print status code and userID
+print(response['ResponseMetadata']['HTTPStatusCode'], response['UserId'])
+NewUserId = response['UserId']
 
-response = client.get_user(
-    AccountId=AccountID,
-    UserId='string'
+#Delete new user
+response = client.delete_user(
+    InstanceId=myInstance,
+    UserId=NewUserId
 )
+print(response['ResponseMetadata']['HTTPStatusCode'])
 
 print(response)
-"""
+
