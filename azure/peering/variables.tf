@@ -11,9 +11,6 @@ variable "client_secret" {
 variable "tenant_id" {
   description = "Tennant ID"
 }
-variable "sharedkey" {
-  description = "Shared key for VPN"
-}
 variable "lpass" {
   description = "Linux Admin Password"
 }
