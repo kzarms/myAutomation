@@ -2,6 +2,9 @@ Import-Module AZ
 
 Connect-AzAccount
 
+# Get-AzLocation | sort DisplayName | ft *
+# Get-AzVMSize -Location "germanywestcentral" | Sort-Object Name | Format-Table *
+
 $TFDisplayName = "Terraform SP Account"
 $Result = Get-AzADServicePrincipal -DisplayName $TFDisplayName
 
