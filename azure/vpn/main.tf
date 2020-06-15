@@ -22,6 +22,7 @@ locals {
   service_name  = "network"
   owner = "Konstantin"
   luser = "useradmin"
+  onpremip = "2.201.84.150"
 }
 # Create a resource group
 resource "azurerm_resource_group" "rg" {
@@ -69,7 +70,7 @@ resource "azurerm_local_network_gateway" "onpremise" {
   name                = "onpremise"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  gateway_address     = "2.201.84.150"
+  gateway_address     = local.onpremip
   address_space       = ["192.168.178.0/24"]
 }
 resource "azurerm_public_ip" "gwip" {
