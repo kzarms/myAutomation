@@ -19,7 +19,7 @@ resource "random_integer" "suffix" {
 }
 #Variables
 locals {
-  service_name  = "lb"
+  service_name  = "TrafficControl"
   location = "germanywestcentral"
   owner = "Konstantin"
   luser = "useradmin"
@@ -146,6 +146,7 @@ resource "azurerm_linux_virtual_machine" "nwa" {
   }
 
  tags = local.tags
+
 }
 
 #Test VMs for check
@@ -205,7 +206,21 @@ resource "azurerm_linux_virtual_machine" "vm1" {
     version   = "latest"
   }
 
- tags = local.tags
+  tags = local.tags
+  # Test post deployment actions after creation
+#  provisioner "remote-exec" {
+#    connection {
+#      type     = "ssh"
+#      host     = azurerm_public_ip.PubIp.ip_address
+#      user     = local.luser
+#      password = var.lpass
+#    }
+
+#    inline = [
+#      "ping -c 4 8.8.8.8 > ping.txt",
+#      "cat ping.txt"
+#    ]
+#  }
 }
 resource "azurerm_linux_virtual_machine" "vm2" {
   name                  = "vm2"
