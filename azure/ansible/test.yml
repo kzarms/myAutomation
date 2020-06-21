@@ -1,0 +1,67 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Create resource group
+      azure_rm_resourcegroup:
+        name: testrg1234
+        location: westeurope
+      register: rg
+    - debug:
+        var: rg
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        resource_group: testrg1234
+        name: Vnet
+        address_prefixes: "10.0.0.0/16"
+    - name: Add subnet
+      azure_rm_subnet:
+        resource_group: testrg1234
+        name: Subnet
+        address_prefix: "10.0.0.0/24"
+        virtual_network: Vnet
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: testrg1234
+        allocation_method: Dynamic
+        name: PublicIP
+      register: output_ip_address
+    - name: Create Network Security Group that allows SSH
+      azure_rm_securitygroup:
+        resource_group: testrg1234
+        name: testNGS
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 22
+            access: Allow
+            priority: 1001
+            direction: Inbound
+    - name: Create virtual network interface card
+      azure_rm_networkinterface:
+        resource_group: testrg1234
+        name: vmNIC
+        virtual_network: Vnet
+        subnet: Subnet
+        public_ip_name: PublicIP
+        security_group: testNGS
+    - name: Create VM
+      azure_rm_virtualmachine:
+        resource_group: testrg1234
+        name: vm
+        vm_size: Standard_D2s_v3
+        admin_username: useradmin
+        admin_password: P@ssw0rd!
+        network_interfaces: vmNIC
+        image:
+          offer: CentOS
+          publisher: OpenLogic
+          sku: '7.5'
+          version: latest
+        tags:
+          server: "web"
+          costcenter: "12345"
+    - name: Dump public IP for VM which will be created
+      debug:
+        msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+      

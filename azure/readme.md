@@ -18,5 +18,6 @@ Code example for ansible files
 
 Simple one time execution
 ```
-ansible-playbook rg.yml
+ansible-playbook test.yml
+ansible all --user useradmin -k -m ping -i ./myazure_rm.yml
 ```
