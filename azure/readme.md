@@ -1,8 +1,22 @@
 # My code and samples for Azure
 Preparation for Azure Architect certification examp
 
-## TBD
+## Terraform
+Code example for terraform files
 
+Init, plan, apply and destroy after.
 ```
-TBD
+terraform init
+terraform plan
+terraform apply -auto-approve
+
+terraform destroy
+```
+
+## Ansible
+Code example for ansible files
+
+Simple one time execution
+```
+ansible-playbook rg.yml
 ```
