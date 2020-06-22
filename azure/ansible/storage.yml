@@ -1,0 +1,44 @@
+---
+- hosts: localhost
+  vars:
+    solutionName: strg
+    location: westeurope
+    #randomN: "{{ 9999 | random(start=1000) }}"
+    randomN: "0622"
+    myTags:
+      env: dev
+      tier: research
+      SLA: "24"
+      costcenter: "12345"
+  connection: local
+  tasks:
+    - name: Create a resource group
+      azure_rm_resourcegroup:
+        name: "{{ solutionName }}{{ randomN }}"
+        location: "{{ location }}"
+      register: rg
+    - debug:
+        #var: rg
+    - name: create a storage account
+      azure_rm_storageaccount:
+        resource_group: "{{ rg.state.name }}"
+        name: "{{solutionName}}{{randomN}}"
+        type: Standard_LRS
+        https_only: yes
+        kind: StorageV2
+        tags: "{{ myTags }}"          
+      register: storage
+    - debug:
+        #var: storage
+    - name: Create a blob container
+      azure_rm_storageblob:
+        resource_group: "{{ rg.state.name }}"
+        storage_account_name: "{{ storage.state.name }}"
+        container: main
+        public_access: container
+      register: main_blob
+    - debug:
+        var: main_blob
+    - name: Data output
+      debug:
+        msg: "Blob URL is: {{ storage.state.primary_endpoints.blob }}."    

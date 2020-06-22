@@ -14,12 +14,16 @@ Param(
 )
 #>
 #Test cases for CreateUser script
-$scriptRoot  = Split-Path -Parent $MyInvocation.MyCommand.Path
+#$scriptRoot  = Split-Path -Parent $MyInvocation.MyCommand.Path
 #. $scriptRoot\CreateUser.ps1
-$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
-. $scriptRoot\$sut -FirstName $FirstName -LastName $LastName -TestMode $TestMode
+#$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+#. $scriptRoot\$sut -FirstName $FirstName -LastName $LastName -TestMode $TestMode
 #. $scriptRoot\$sut
 
+BeforeAll {
+    # DON'T use $MyInvocation.MyCommand.Path
+    . $PSCommandPath.Replace('.Tests.ps1','.ps1')
+}
 #Module describe
 $myDynamicModule = New-Module -Name MyDynamicModule {
     function Get-MgUser {}
