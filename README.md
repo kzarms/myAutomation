@@ -17,6 +17,9 @@ Manual code check
 ```
 Invoke-ScriptAnalyzer -Path AzureAD/ -ReportSummary
 Invoke-Pester -Script AzureAD/
+
+pyflakes ./ubuntu/ubuntu_setup.py
+pylint ./ubuntu/ubuntu_setup.py
 ```
 
 
