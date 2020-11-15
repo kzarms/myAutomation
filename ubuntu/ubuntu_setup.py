@@ -2,6 +2,7 @@
 """ This is main module dockstring"""
 import subprocess
 import webbrowser
+import os
 
 subprocess.Popen("lsb_release -a", shell=True)
 #Set packet lists
@@ -109,18 +110,37 @@ def my_docker():
     my_p4 = subprocess.Popen("usermod -aG docker $USER", shell=True)
     my_p4.wait()
 
-def ssh_keys(my_mail):
+def ssh_keys(my_mail=""):
     """ Default packages installation function """
     #
+    keyFile = "/.ssh/id_rsa"
+    if os.path.exists(os.path.expanduser("~")+keyFile):
+        # key file exists
+        print(CGREEN + "4k keys are existing. Exit." + CEND)
+        return
     if not my_mail:
         my_mail = input('Enter your email:')
-    cmd = 'ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "' + my_mail + '" -q -N ""'
-    my_p6 = subprocess.Popen(cmd, shell=True)
-    my_p6.wait()
+    cmd = 'ssh-keygen -t rsa -b 4096 -f ~' + keyFile + ' -C "' + my_mail + '" -q -N ""'
+    subP = subprocess.Popen(cmd, shell=True)
+    subP.wait()
     print(CGREEN + "4k keys generated successfully" + CEND)
 
-myinstall(PACKAGES)
-VScode()
+def ansible():
+    """ Prepare for ansible installation """
+    # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu
+    print(CGREEN + "Installing Ansible package" + CEND)
+    subP = subprocess.Popen('apt install software-properties-common', shell=True)
+    subP.wait()
+    subP = subprocess.Popen('apt-add-repository --yes --update ppa:ansible/ansible', shell=True)
+    subP.wait()
+    subP = subprocess.Popen('apt install ansible -y', shell=True)
+    subP.wait()
+    print(CGREEN + "Ansible has been installed successfully" + CEND)
+
+#myinstall(PACKAGES)
+#VScode()
 #MSTeams()
-extensions()
+#extensions()
 #my_docker()
+ssh_keys()
+ansible()
