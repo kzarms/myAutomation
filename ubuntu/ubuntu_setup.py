@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ This is main module dockstring"""
 import subprocess
 import webbrowser
@@ -43,7 +44,7 @@ def extensions():
     url = "https://extensions.gnome.org/extension/750/openweather/"
     webbrowser.get('firefox').open_new_tab(url)
 
-def vs_code():
+def VScode():
     """ Default packages installation function """
     my_p2 = subprocess.Popen( \
         "wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -", \
@@ -119,7 +120,7 @@ def ssh_keys(my_mail):
     print(CGREEN + "4k keys generated successfully" + CEND)
 
 myinstall(PACKAGES)
-#VScode()
+VScode()
 #MSTeams()
-#extensions()
-my_docker()
+extensions()
+#my_docker()
