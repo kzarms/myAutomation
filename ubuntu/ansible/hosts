@@ -1,0 +1,2 @@
+[local]
+192.168.178.59 ansible_python_interpreter=/usr/bin/python3 

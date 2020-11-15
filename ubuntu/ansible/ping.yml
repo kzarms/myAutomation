@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: kot
+  tasks:
+    - name: Ping hosts
+      ping:
