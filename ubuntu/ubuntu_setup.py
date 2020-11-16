@@ -137,6 +137,27 @@ def ansible():
     subP.wait()
     print(CGREEN + "Ansible has been installed successfully" + CEND)
 
+def salt(slave=1):
+    """ Prepare for salt-stack installation """
+    # https://repo.saltstack.com/#ubuntu
+    print(CGREEN + "Installing Ansible package" + CEND)
+    subP = subprocess.Popen( \
+        "wget -O - https://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -", \
+        shell=True)
+    subP.wait()
+    subP = subprocess.Popen( \
+        'add-apt-repository "deb [arch=amd64] ' \
+        + 'http://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest focal main"', \
+        shell=True)
+    subP = subprocess.Popen('apt-get update', shell=True)
+    subP.wait()
+    if slave:
+        subP = subprocess.Popen('apt-get install salt-minion -y', shell=True)
+    else:
+        subP = subprocess.Popen('apt-get install salt-master salt-minion salt-ssh salt-syndic salt-cloud salt-api -y', shell=True)
+    subP.wait()
+    print(CGREEN + "SaltStack has been installed successfully" + CEND)
+
 #myinstall(PACKAGES)
 #VScode()
 #MSTeams()
@@ -144,3 +165,4 @@ def ansible():
 #my_docker()
 ssh_keys()
 ansible()
+# salt()
