@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ This is a file for TV setup and configuration"""
 import subprocess
 import webbrowser
