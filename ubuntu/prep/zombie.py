@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import subprocess
 import time
-import threading
 
 proc = subprocess.Popen(['ls', '-l'])
 
