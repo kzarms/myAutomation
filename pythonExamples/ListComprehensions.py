@@ -8,4 +8,7 @@ y = 2
 z = 2
 n = 2
 
-print ([[a,b,c] for a in range(0,x+1) for b in range(0,y+1) for c in range(0,z+1) if a + b + c == n ])
+print ([[a,b,c] for a in range(x+1) for b in range(y+1) for c in range(z+1) if a + b + c == n ])
+
+for a in range(x+1):
+    print(a)
