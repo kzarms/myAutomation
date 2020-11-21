@@ -17,12 +17,14 @@ apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 chrome-gnome-shell
 openjdk-8-jdk openjdk-8-jre
 """
+
 for package in PACKAGES.split():
     print(package)
 
 #Get updates first
 p = subprocess.Popen("apt update", shell=True)
 p.wait()
+
 
 def myinstall(packages):
     """ Package installation fucntion """
@@ -36,6 +38,7 @@ def myinstall(packages):
 
     print(CGREEN + "[+] Installation of the ubuntu packages has been completed" + CEND)
 
+
 def extensions():
     """ Install extensions into the GNOME """
     #bing
@@ -46,3 +49,4 @@ def extensions():
     webbrowser.get('firefox').open_new_tab(url)
 
 myinstall(PACKAGES)
+
