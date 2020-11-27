@@ -7,3 +7,4 @@ samples.*
 .vscode/
 *.pem
 __pycache__
+.coverage
