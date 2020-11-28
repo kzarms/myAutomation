@@ -8,13 +8,6 @@ dnf install nano vim mc net-tools tcpdump wget curl -y
 setenforce 0
 sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-systemctl stop firewalld
-systemctl disable firewalld
-
-
-firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o ens192 -j MASQUERADE -s 192.168.0.0/24
-firewall-cmd --reload
-
 dnf update
 dnf upgrade
 
@@ -22,11 +15,28 @@ dnf upgrade
 sysctl -w net.ipv4.ip_forward=1
 sysctl net.ipv4.ip_forward
 
-systemctl enabled firewalld
-systemctl start firewalld
+firewall-cmd --get-active-zone
+nmcli connection modify ens224 connection.zone internal
+nmcli connection modify ens192 connection.zone external
+firewall-cmd --get-active-zone
 
-firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o ens192 -j MASQUERADE -s 192.168.0.0/24
+firewall-cmd --zone=external --add-masquerade --permanent
 firewall-cmd --reload
+
+ssh-keygen -t rsa -b 4096
+
+ssh-copy-id root@node1.local
+ssh-copy-id root@node2.local
+
+# Change color
+export PS1="\e[0;32m[\u@\h \W]\$ \e[m "
+
+
+#systemctl enabled firewalld
+#systemctl start firewalld
+
+#firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o ens192 -j MASQUERADE -s 192.168.0.0/24
+#firewall-cmd --reload
 
 #
 #nft add table nat
@@ -50,13 +60,13 @@ echo "192.168.0.22 node2.local" | tee -a /etc/hosts
 # reboot
 
 # Firewall Setup
-firewall-cmd --permanent --add-port=6443/tcp
-firewall-cmd --permanent --add-port=8080/tcp
-firewall-cmd --permanent --add-port=2379-2380/tcp
-firewall-cmd --permanent --add-port=10250/tcp
-firewall-cmd --permanent --add-port=10251/tcp
-firewall-cmd --permanent --add-port=10252/tcp
-firewall-cmd --permanent --add-port=10255/tcp
+firewall-cmd --permanent --add-port=6443/tcp --zone=internal
+firewall-cmd --permanent --add-port=8080/tcp --zone=external
+firewall-cmd --permanent --add-port=2379-2380/tcp --zone=internal
+firewall-cmd --permanent --add-port=10250/tcp --zone=internal
+firewall-cmd --permanent --add-port=10251/tcp --zone=internal
+firewall-cmd --permanent --add-port=10252/tcp --zone=internal
+firewall-cmd --permanent --add-port=10255/tcp --zone=internal
 firewall-cmd --reload
 # disable swap
 swapoff -a
@@ -190,7 +200,7 @@ kubectl get pods --all-namespaces
 kubectl create deployment nginx --image=nginx
 
 # Save deoployment into file
-kubectl get deployment nginx -o yaml > nginx2.yaml
+kubectl get deployment nginx -o yaml > nginx.yaml
 
 # Edit file
 # into file
@@ -200,7 +210,7 @@ ports:                               # Add these8
   protocol: TCP                      # lines
 
 # Update deployment
-kubectl replace -f nginx2.yaml
+kubectl replace -f nginx.yaml
 
 # Get info about deployment
 kubectl get deploy,pod
@@ -218,4 +228,31 @@ kubectl get ep nginx
 kubectl describe pod nginx
 
 
+kubectl scale deployment nginx --replicas=3
+kubectl get deployment nginx
 
+kubectl get ep nginx
+# Finde where
+kubectl describe pod nginx | grep Node
+
+# Delete particular pod
+kubectl delete pod nginx-7848d4b86f-g59hz
+
+kubectl get po
+# System recreate pod immediatly.
+
+# Check container info
+kubectl exec nginx-7848d4b86f-rcmbm -- printenv | grep KUBERNETES
+
+# Delete service
+kubectl delete svc nginx
+
+# Create a new service with different type
+kubectl expose deployment nginx --type=LoadBalancer
+
+firewall-cmd --permanent --add-port=30933/tcp --zone=external
+firewall-cmd --reload
+
+# Remove 
+kubectl delete deployments nginx
+kubectl delete svc nginx

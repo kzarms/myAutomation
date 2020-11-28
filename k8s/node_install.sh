@@ -12,10 +12,15 @@ echo "192.168.0.254 k8smaster.local" | tee -a /etc/hosts
 echo "192.168.0.21 node1.local" | tee -a /etc/hosts
 echo "192.168.0.22 node2.local" | tee -a /etc/hosts
 ping k8smaster.local -c4
+ping node1.local -c1
+ping www.google.com -c1
 # disable swap
 swapoff -a
-cat /etc/fstab
+# cat /etc/fstab
 sed -i 's/\/dev\/mapper\/cl-swap/\#\/dev\/mapper\/cl-swap/g' /etc/fstab
+# Disable local firewall
+systemctl stop firewalld
+systemctl disable firewalld
 # Add docker repo
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 # Install docker
@@ -42,8 +47,5 @@ EOF
 dnf install kubeadm -y 
 
 # Configure node
-kubeadm join \
---token et7o7r.xv8urw3e0shmp99b \
-centos8.local:6443 \
---discovery-token-ca-cert-hash \
-sha256:9ebe115403f549f1b57e82c1a88b74bba741b4ad0f22f3159eef2f1f31b78833
+
+kubeadm join k8smaster.local:6443 --token jp4z7c.b2ebxh4wshy6t6nx --discovery-token-ca-cert-hash sha256:407a16a80e06e1fc95aee2505d59a92bb1ff6a76dab23580272787f7d13fb904 --control-plane --certificate-key aa0eae7ea0ac6fa6b78904f6c8862c0ae04f964a52614c420264950ad4da294b
