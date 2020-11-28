@@ -8,13 +8,14 @@ dnf update
 dnf upgrade
 
 # Add Static names for DNS
-echo "192.168.0.254 centos8.local" | tee -a /etc/hosts
+echo "192.168.0.254 k8smaster.local" | tee -a /etc/hosts
 echo "192.168.0.21 node1.local" | tee -a /etc/hosts
 echo "192.168.0.22 node2.local" | tee -a /etc/hosts
-ping centos8.local -c4
+ping k8smaster.local -c4
 # disable swap
 swapoff -a
-
+cat /etc/fstab
+sed -i 's/\/dev\/mapper\/cl-swap/\#\/dev\/mapper\/cl-swap/g' /etc/fstab
 # Add docker repo
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 # Install docker
