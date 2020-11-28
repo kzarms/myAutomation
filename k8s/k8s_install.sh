@@ -13,14 +13,13 @@ echo "192.168.0.21 node1.local" | tee -a /etc/hosts
 echo "192.168.0.22 node2.local" | tee -a /etc/hosts
 
 # Disable SElinux and swap file
-setenforce 0
+# setenforce 0
 
-sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+# sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 # reboot
 
 # Firewall Setup
 firewall-cmd --permanent --add-port=6443/tcp
-firewall-cmd --permanent --add-port=8001/tcp
 firewall-cmd --permanent --add-port=8080/tcp
 firewall-cmd --permanent --add-port=2379-2380/tcp
 firewall-cmd --permanent --add-port=10250/tcp
@@ -74,10 +73,18 @@ networking:
 EOF
 
 # Init the claster
-kubeadm init --config=kubeadm-config.yaml --upload-certs | tee kubeadm-init.out # Save output for future review
+# kubeadm init --config=kubeadm-config.yaml --upload-certs | tee kubeadm-init.out # Save output for future review
+kubeadm init --control-plane-endpoint 'centos8.local' --pod-network-cidr '10.10.0.0/16' --service-cidr '10.20.0.0/16' --upload-certs | tee kubeadm-init.out
+# Exit form sudo mode
+exit
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Network!
 wget https://docs.projectcalico.org/manifests/calico.yaml
+# sed -i 's/192.168.0.0\/16/10.10.0.0\/16/g' calico.yaml
 kubectl apply -f calico.yaml
 
 kubectl get nodes
@@ -90,19 +97,20 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/a
 kubectl create serviceaccount dashboard-admin-sa
 kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
 
+# Get secret from the account
 kubectl get secrets
 kubectl describe secret dashboard-admin-sa-token-d6ld4
 
 # Start proxy
 #kubectl proxy --address='0.0.0.0' --port=8080 --accept-hosts='.*' &
-kubectl proxy
+kubectl proxy &
 
-ssh -L 8080:127.0.0.1:8001 -N -f -l kot 192.168.26.26
+# On local machine in a separate window:
+ssh -L 8080:127.0.0.1:8001 -N -f -l kot@192.168.26.26
+### http://192.168.26.26:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 
-
-http://192.168.26.26:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
-
-http://localhost:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+# Local URL to connect
+# http://localhost:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 kubectl get services -n kubernetes-dashboard
 
 
@@ -114,30 +122,3 @@ kubectl get services -n kubernetes-dashboard
 #swapoff -a
 #kubeadm init
 
-
-kubeadm join 192.168.0.254:6443 --token u4taeh.8bzkaq72okfwqpnc --discovery-token-ca-cert-hash sha256:7c75287b770adbf46cc9980d704338254b98c0568127719e54c5326c16e59072
-kubectl proxy --address='0.0.0.0' --port=8080
-
-
-# Install web board
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
-
-kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
-
-
-
-
-You can now join any number of the control-plane node running the following command on each as root:
-
-  kubeadm join centos8.local:6443 --token 93jtl2.c1ntx3ekmfk9qyox \
-    --discovery-token-ca-cert-hash sha256:fda96dc41017d3ee5b4a0d2c1cce9de07b2774a6e0604929481f41b51cd8083b \
-    --control-plane --certificate-key 55f1904c4d06c5e53a28ede6420441448b85fa549d899da554aad903044cb1a5
-
-Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
-"kubeadm init phase upload-certs --upload-certs" to reload certs afterward.
-
-Then you can join any number of worker nodes by running the following on each as root:
-
-kubeadm join centos8.local:6443 --token 93jtl2.c1ntx3ekmfk9qyox \
-    --discovery-token-ca-cert-hash sha256:fda96dc41017d3ee5b4a0d2c1cce9de07b2774a6e0604929481f41b51cd8083b
