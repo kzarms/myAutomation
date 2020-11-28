@@ -113,12 +113,19 @@ ssh -L 8080:127.0.0.1:8001 -N -f -l kot@192.168.26.26
 # http://localhost:8080/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 kubectl get services -n kubernetes-dashboard
 
+# Generate tocket to connect
+sudo kubeadm token list
 
-# Start
-#systemctl enable kubelet
-#systemctl start kubelet
+sudo kubeadm token create
+openssl x509 -pubkey \
+-in /etc/kubernetes/pki/ca.crt | openssl rsa \
+-pubin -outform der 2>/dev/null | openssl dgst \
+-sha256 -hex | sed 's/ˆ.* //'
 
-# init
-#swapoff -a
-#kubeadm init
+# (stdin)= 9ebe115403f549f1b57e82c1a88b74bba741b4ad0f22f3159eef2f1f31b78833
 
+#kubeadm join \
+#--token et7o7r.xv8urw3e0shmp99b \
+#centos8.local:6443 \
+#--discovery-token-ca-cert-hash \
+#sha256:9ebe115403f549f1b57e82c1a88b74bba741b4ad0f22f3159eef2f1f31b78833
