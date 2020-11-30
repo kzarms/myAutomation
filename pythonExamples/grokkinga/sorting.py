@@ -1,6 +1,9 @@
 # Selection sort
 arr = [5, 3, 4, 6, 16, 54, 23, 2, 44, 57, 65, 34]
 
+# d = dict(enumerate(arr,1))
+# rd = {v:k for k,v in d.items()}
+
 def SelectionSort(arr):
     result = []
     while arr:
