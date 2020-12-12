@@ -10,7 +10,7 @@
 # flake8 .\ubuntu\prep\sample.py
 
 # Unit tests with pythest
-# pytest .\ubuntu\prep\sample.py
+# pytest .\ubuntu\prepsample.py
 
 import pytest
 # Tests
