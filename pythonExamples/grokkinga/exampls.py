@@ -168,3 +168,65 @@ id(b)
 
 mapping = str.maketrans('abc',"123")
 "a a bb cc".translate(mapping)
+
+
+
+########################################
+
+t = ("v", 2)
+l = ["a", 5, "13", 6]
+
+list(t)
+tuple(l)
+print(*t)
+
+import numpy
+
+l = [1, 3, 6, 15]
+print(l)
+arr = numpy.array(l)
+print(arr)
+arr.sum()
+
+
+my_obj = lambda x: (x + 1)*2
+my_obj(7)
+
+
+mygenerator = (x*x for x in range(3))
+print(mygenerator)
+
+
+"1" if 1 > 2 else "2"
+
+x = 5
+def foo():
+    return x*x
+
+print(foo())
+
+sl = ["a", "v", "d"]
+print(*sl, sep="")
+"".join(sl)
+
+a = {k:v for k,v in enumerate(sl,1)}
+
+##############################
+
+s = "Python"
+s[::-1]
+
+subs = "t"
+"Exists" if subs in s else "Not Extists"
+
+my_graph = {}
+my_graph['A'] = ['B', 'C']
+my_graph['B'] = ['D', 'E']
+my_graph['C'] = ['F']
+my_graph['D'] = []
+my_graph['E'] = ['F']
+my_graph['F'] = []
+
+v = 'F'
+def my_bfs(v):
+    print("")
