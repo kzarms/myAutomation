@@ -77,9 +77,37 @@ print(my_replace(s2))
 # 1.4 Return a palindrom permutation of the string
 
 s = "tact coa"
+s2 = "tact coab"
 
 def my_pp(s):
-    print(s)
+    my_hash = {}
+    my_s = s.replace(" ", "")
+    for el in my_s:
+        if el in my_hash:
+            my_hash[el] += 1
+        else:
+            my_hash[el] = 1
+
+    odd = True if len(my_s) % 2 else False
+
+    odd_count = 0
+    for el in my_hash.keys():
+        if my_hash[el] % 2:
+            odd_count += 1
+    if odd:
+        if odd_count == 1:
+            return "Polindrom"
+        else:
+            return "Not polindrom"
+    else:
+        if odd_count > 0:
+            return "Not polindrom"
+        else:
+            return "Polyndrom"
+
+print(my_pp(s))
+print(my_pp(s2))
+
 
 
 # 1.5 find a way how many chanses has been done:
