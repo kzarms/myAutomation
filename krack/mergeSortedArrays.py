@@ -46,6 +46,7 @@ sortNsortedArrays(a, b, c)
 """
 
 import heapq
+from timeit import default_timer as timer
 
 def get_k_docs(*arrays):
     min_heap = []
@@ -57,12 +58,26 @@ def get_k_docs(*arrays):
     while min_heap:
         results.append(heapq.heappop(min_heap))
     print(results)
-#    while min_heap:
-#        results.append(heapq.heappop(min_heap)
 
 
+def bf_sort(*arrays):
+    result = []
+    for arr in arrays:
+        for el in arr:
+            result.append(el)
+    result.sort()
+    print(result)
 
-a = [1, 3, 5]
-b = [4, 2, 6]
+a = [3, 4, 7, 9]
+b = [1, 2, 5, 12]
+c = [6, 8, 10, 11]
 
-get_k_docs(a, b)
+start = timer()
+get_k_docs(a, b, c)
+end = timer()
+print(end - start)
+
+start = timer()
+bf_sort(a, b, c)
+end = timer()
+print(end - start)
