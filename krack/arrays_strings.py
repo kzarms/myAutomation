@@ -3,6 +3,7 @@
 u = "abcdefghijk"
 s = "abcdeaghijk"
 
+
 def isUnique(my_string):
     my_hash = {}
 
@@ -13,16 +14,18 @@ def isUnique(my_string):
             my_hash[el] = 1
     return "Unique"
 
+
 def isUniqueNoHash(my_string):
     for i in range(len(my_string)):
-        if my_string[i] in my_string[i+1:]:
+        if my_string[i] in my_string[i + 1 :]:
             return "Not unique"
     return "Unique"
+
 
 def isUniqueSort(my_string):
     s_list = sorted(my_string)
     for i in range(len(s_list) - 1):
-        if s_list[i] == s_list[i+1]:
+        if s_list[i] == s_list[i + 1]:
             return "Not unique"
     return "Unique"
 
@@ -40,6 +43,7 @@ print(isUniqueSort(s))
 s1 = "abcd"
 s2 = "acdb"
 s3 = "acdf"
+
 
 def isPerm(s1, s2):
     my_hash = {}
@@ -59,6 +63,7 @@ def isPerm(s1, s2):
             return "Not perm"
     return "Perm"
 
+
 print(isPerm(s1, s2))
 print(isPerm(s1, s3))
 
@@ -67,9 +72,11 @@ print(isPerm(s1, s3))
 s1 = "My name is Robot"
 s2 = "My wrong example   "
 
+
 def my_replace(s):
     wordList = s.rstrip().split(" ")
     return "%20".join(wordList)
+
 
 print(my_replace(s1))
 print(my_replace(s2))
@@ -78,6 +85,7 @@ print(my_replace(s2))
 
 s = "tact coa"
 s2 = "tact coab"
+
 
 def my_pp(s):
     my_hash = {}
@@ -105,9 +113,9 @@ def my_pp(s):
         else:
             return "Polyndrom"
 
+
 print(my_pp(s))
 print(my_pp(s2))
-
 
 
 # 1.5 find a way how many chanses has been done:
@@ -115,6 +123,10 @@ print(my_pp(s2))
 s1 = "pale"
 s2 = "ple"
 s3 = "bake"
+
+for i, j in zip(s1, s3):
+    print(i, j)
+
 
 def string_check(s, r):
     my_hash = {}
@@ -134,14 +146,11 @@ def string_check(s, r):
         else:
             return "More than one replace, false"
 
-    elif len(s) == len(r)+1:
+    elif len(s) == len(r) + 1:
         # Insert a char in r
-        insert_count = 0
-        for i in range(len(s)):
-            if s[i] != r[i]:
-                insert_count += 1
+        pass
 
-    elif len(s) == len(r)-1:
+    elif len(s) == len(r) - 1:
         # Remove char in r
         pass
 
@@ -149,9 +158,35 @@ def string_check(s, r):
         return "Wrong"
 
 
-
 print(string_check(s1, s2))
-
 print(string_check(s1, s3))
 
+# 1.6 manual zip function
 
+s = "aabcccccaaa"
+
+
+def my_zip(s):
+
+    result = []
+    restulStr = ""
+    count = 0
+    curr_char = s[0]
+    for el in s:
+        if el == curr_char:
+            count += 1
+        else:
+            result.append((curr_char, count))
+            count = 1
+            curr_char = el
+    # Finnal close
+    result.append((curr_char, count))
+    for el in result:
+        restulStr += el[0] + str(el[1])
+    if len(restulStr) >= len(s):
+        return s
+    else:
+        return restulStr
+
+
+print(my_zip(s))
