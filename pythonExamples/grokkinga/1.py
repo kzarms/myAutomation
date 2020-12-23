@@ -211,3 +211,22 @@ for i in range(len(listValues)):
             print(listValues[j])
             print(int(listValues[i]) * int(listValues[j]))
 
+listValues = a.splitlines()
+for i in range(len(listValues)):
+    for j in range(len(listValues)):
+        if (int(listValues[i]) + int(listValues[j])) == 2020:
+            print(listValues[i])
+            print(listValues[j])
+            print(int(listValues[i]) * int(listValues[j]))
+
+listValues.sort()
+
+for i in range(len(listValues)):
+    for j in range(len(listValues)):
+        if (int(listValues[i]) + int(listValues[j])) < 2020:
+            for k in range(len(listValues)):
+                if (int(listValues[i]) + int(listValues[j]) + int(listValues[k])) == 2020:
+                    print(listValues[i])
+                    print(listValues[j])
+                    print(listValues[k])
+                    print(int(listValues[i]) * int(listValues[j]) * int(listValues[k]))
