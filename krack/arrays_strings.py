@@ -190,3 +190,40 @@ def my_zip(s):
 
 
 print(my_zip(s))
+
+
+# 1.7 Matrix rotation
+
+m = [
+    ['a', 'b', 'c', 'd'],
+    ['e', 'f', 'g', 'h'],
+    ['j', 'k', 'l', 'm'],
+    ['n', 'o', 'p', 'q']
+]
+
+def my_rotate(m):
+    # Rotate layer by layer
+    new_m = [['', '', '', ''], ['', '', '', ''], ['', '', '', ''], ['', '', '', '']]
+    matrix_len = len(m[0])
+    layers = int(matrix_len/2)
+    for i in range(layers):
+        first = i
+        last = matrix_len - 1 - i
+        for j in range(first, last):
+            offset = j - first
+            top = m[first][j]
+            # left to top
+            new_m[first][j] = m[last - offset][first]
+
+            # bottom to left
+            new_m[last - offset][first] = m[last][last - offset]
+
+            # right to bottom
+            new_m[last][last - offset] = m[j][last]
+
+            # top to right
+            new_m[j][last] = top
+
+    return new_m
+
+print(my_rotate(m))
