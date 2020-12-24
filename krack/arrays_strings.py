@@ -227,3 +227,33 @@ def my_rotate(m):
     return new_m
 
 print(my_rotate(m))
+
+m = [
+    ['a', 'b', 'c', 'd'],
+    ['e', 'f', 'g', 'h'],
+    ['j', 'k', '0', 'm'],
+    ['n', 'o', 'p', 'q']
+]
+
+def my_zero(m):
+
+    row = []
+    col = []
+
+    size = len(m[0])
+    for i in range(size):
+        for j in range(size):
+            if m[i][j] == '0':
+                row.append(i)
+                col.append(j)
+    # Set nulls
+    if row:
+        for r in row:
+            for i in range(size):
+                m[r][i] = '0'
+        for c in col:
+            for j in range(size):
+                m[j][c] = '0'
+    return m
+
+print(my_zero(m))
