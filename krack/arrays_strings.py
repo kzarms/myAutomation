@@ -195,17 +195,18 @@ print(my_zip(s))
 # 1.7 Matrix rotation
 
 m = [
-    ['a', 'b', 'c', 'd'],
-    ['e', 'f', 'g', 'h'],
-    ['j', 'k', 'l', 'm'],
-    ['n', 'o', 'p', 'q']
+    ["a", "b", "c", "d"],
+    ["e", "f", "g", "h"],
+    ["j", "k", "l", "m"],
+    ["n", "o", "p", "q"],
 ]
+
 
 def my_rotate(m):
     # Rotate layer by layer
-    new_m = [['', '', '', ''], ['', '', '', ''], ['', '', '', ''], ['', '', '', '']]
+    new_m = [["", "", "", ""], ["", "", "", ""], ["", "", "", ""], ["", "", "", ""]]
     matrix_len = len(m[0])
-    layers = int(matrix_len/2)
+    layers = int(matrix_len / 2)
     for i in range(layers):
         first = i
         last = matrix_len - 1 - i
@@ -226,14 +227,19 @@ def my_rotate(m):
 
     return new_m
 
+
 print(my_rotate(m))
 
+
+# 1.8 set 0-s in the matrix
+
 m = [
-    ['a', 'b', 'c', 'd'],
-    ['e', 'f', 'g', 'h'],
-    ['j', 'k', '0', 'm'],
-    ['n', 'o', 'p', 'q']
+    ["a", "b", "c", "d"],
+    ["e", "f", "g", "h"],
+    ["j", "k", "0", "m"],
+    ["n", "o", "p", "q"],
 ]
+
 
 def my_zero(m):
 
@@ -243,17 +249,37 @@ def my_zero(m):
     size = len(m[0])
     for i in range(size):
         for j in range(size):
-            if m[i][j] == '0':
+            if m[i][j] == "0":
                 row.append(i)
                 col.append(j)
     # Set nulls
     if row:
         for r in row:
             for i in range(size):
-                m[r][i] = '0'
+                m[r][i] = "0"
         for c in col:
             for j in range(size):
-                m[j][c] = '0'
+                m[j][c] = "0"
     return m
 
+
 print(my_zero(m))
+
+# 1.9 chech if string or not
+
+s1 = "lainer"
+s2 = "nerlai"
+
+
+def my_rotation_check(s1, s2):
+    sub = ""
+    for i in s1:
+        sub = sub + i
+        if sub not in s2:
+            sub = sub[:-1]
+            break
+    devider = len(sub) - 1
+    return "yes" if s1[devider + 1 :] + s1[: devider + 1] == s2 else "No"
+
+
+print(my_rotation_check(s1, s2))
