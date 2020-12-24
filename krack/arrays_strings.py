@@ -282,4 +282,14 @@ def my_rotation_check(s1, s2):
     return "yes" if s1[devider + 1 :] + s1[: devider + 1] == s2 else "No"
 
 
+def my_rotation_check2(s1, s2):
+    if len(s1) == len(s1) and len(s1) > 0:
+        s11 = s1 * 2
+        if s2 in s11:
+            return "yes"
+    return "no"
+
+
 print(my_rotation_check(s1, s2))
+
+print(my_rotation_check2(s1, s2))
