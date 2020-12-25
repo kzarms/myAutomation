@@ -46,4 +46,8 @@ def twoStrings(s1, s2):
             return "YES"
     return "NO"
 
+def twoStrings2(s1, s2):
+    return "YES" if set(s1)&set(s2) else "No"
+
 print(twoStrings(s1, s2))
+print(twoStrings2(s1, s2))
