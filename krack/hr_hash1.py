@@ -51,3 +51,11 @@ def twoStrings2(s1, s2):
 
 print(twoStrings(s1, s2))
 print(twoStrings2(s1, s2))
+
+
+s = "abba"
+s = 'ifailuhkqq'
+def sherlockAndAnagrams(s):
+    for i in range(len(s))
+        pass
+
