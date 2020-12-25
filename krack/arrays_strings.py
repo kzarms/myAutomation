@@ -284,11 +284,14 @@ def my_rotation_check(s1, s2):
 
 def my_rotation_check2(s1, s2):
     if len(s1) == len(s1) and len(s1) > 0:
-        s11 = s1 * 2
-        if s2 in s11:
+        if s2 in s1 * 2:
+            return "yes"
+        if s1 in s2 * 2:
             return "yes"
     return "no"
 
+print(my_rotation_check2("testblock", "blocktest"))
+print(my_rotation_check2("testblock", "bolcktest"))
 
 print(my_rotation_check(s1, s2))
 
