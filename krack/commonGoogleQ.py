@@ -137,4 +137,15 @@ def delete_node(head, key):
 
 print(delete_node(head, key))
 
+a = 400
+b = 400
+id(a) == id(b)
+
+
+
+
+a = 4
+b = 4
+id(a) == id(b)
+
 # https://www.educative.io/blog/google-coding-interview-questions

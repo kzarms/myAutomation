@@ -53,9 +53,30 @@ print(twoStrings(s1, s2))
 print(twoStrings2(s1, s2))
 
 
-s = "abba"
-s = 'ifailuhkqq'
-def sherlockAndAnagrams(s):
-    for i in range(len(s))
-        pass
 
+def sherlockAndAnagrams(s):
+    anagrams = []
+    h = {}
+    summ = 0
+    for i in range(1,len(s)):
+        for j in range(0,len(s)-i+1):
+            anagrams.append("".join(sorted(s[j:j+i])))
+    for el in anagrams:
+        if el in h:
+            h[el] += 1
+        else:
+            h[el] = 1
+    for k in h.keys():
+        if h[k] > 1:
+            summ += sum(range(h[k]))
+    return summ
+
+sum(range(4))
+s = "abba"
+print(sherlockAndAnagrams(s))
+
+s = 'ifailuhkqq'
+print(sherlockAndAnagrams(s))
+
+s = 'kkkk'
+print(sherlockAndAnagrams(s))
