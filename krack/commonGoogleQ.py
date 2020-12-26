@@ -149,3 +149,76 @@ b = 4
 id(a) == id(b)
 
 # https://www.educative.io/blog/google-coding-interview-questions
+
+a = [1, 2]
+b = a[:]
+
+id(a)
+id(b)
+
+# Mirror binary tree nodes
+
+tree = [40, 100, 400, 150, 50, 300, 600]
+
+
+class node():
+    def __init(self, data):
+        self.left = None
+        self.right = None
+        slef.data = data
+
+    def inOrder(root):
+        if root:
+            inOrder(root.left)
+            print(root.data)
+            inOrder(root.right)
+
+    def mirror(root):
+        if root:
+            mirror(root.left)
+            mirror(root.right)
+            root.left, root.right = root.right, root.left
+
+
+def mirror_tree(tree):
+    result = []
+
+    return result
+
+#######
+
+
+def valid_number(x):
+    l = x.split(".")
+    if len(l) == 1:
+        if l[0].isnumeric():
+            return True
+    elif len(l) == 2:
+        if l[0].isnumeric() and l[0].isnumeric():
+            return True
+
+    return False
+
+
+x = "345"
+print(valid_number(x))
+
+x = "34.54"
+print(valid_number(x))
+
+x = "22.33.22"
+print(valid_number(x))
+
+x = ".33"
+print(valid_number(x))
+
+
+arr = [8, 3, 5, 2, 4, 6, 0, 1]
+
+def find_missing_num(arr):
+    # Find number about array
+    act_sum = sum(arr)
+    exp_sum = sum(range(len(arr)+1))
+    return exp_sum - act_sum
+
+print(find_missing_num(arr))
