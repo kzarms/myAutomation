@@ -90,6 +90,7 @@ arr = [64, 34, 25, 80, 12, 22, 11]
 
 # Insertion sort
 
+
 def insertionSort(arr):
     temp_arr = arr[:]
 
@@ -97,16 +98,18 @@ def insertionSort(arr):
         key = temp_arr[i]
         j = i - 1
         while j >= 0 and key < temp_arr[j]:
-            temp_arr[j+1] = temp_arr[j]
+            temp_arr[j + 1] = temp_arr[j]
             j -= 1
-        temp_arr[j+1] = key
+        temp_arr[j + 1] = key
     return temp_arr
+
 
 print(insertionSort(arr))
 
 
 #### Merge sort!
 # First of all device and couquer
+
 
 def dac_max(arr, index, lenth):
     max = -1
@@ -115,14 +118,16 @@ def dac_max(arr, index, lenth):
             return arr[index]
         else:
             return arr[index + 1]
-    max = dac_max(arr, index+1, lenth)
+    max = dac_max(arr, index + 1, lenth)
 
     if arr[index] > max:
         return arr[index]
     else:
         return max
 
+
 print(dac_max(arr, 0, 7))
+
 
 def dac_min(arr, index, lenth):
     min = 0
@@ -140,14 +145,17 @@ def dac_min(arr, index, lenth):
     else:
         return min
 
+
 print(dac_min(arr, 0, 7))
 
 
 # merge sort
 arr = [64, 34, 25, 80, 12, 22, 11]
+
+
 def mergSort(arr):
     if len(arr) > 1:
-        mid = len(arr)//2
+        mid = len(arr) // 2
         L = arr[:mid]
         R = arr[mid:]
 
@@ -174,5 +182,39 @@ def mergSort(arr):
             j += 1
             k += 1
 
+
 mergSort(arr)
+print(arr)
+
+
+def myMS(arr):
+    if len(arr) > 1:
+        m = len(arr) // 2
+        L = arr[:m]
+        R = arr[m:]
+
+        myMS(L)
+        myMS(R)
+
+        i = j = k = 0
+        while (i < len(L)) and (j < len(R)):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+
+arr = [64, 34, 25, 80, 12, 22, 11]
+myMS(arr)
 print(arr)
