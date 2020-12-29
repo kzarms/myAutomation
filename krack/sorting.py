@@ -294,3 +294,19 @@ arr = [64, 34, 25, 80, 12, 22, 11]
 quicksort(arr, 0, 7 - 1)
 print(arr)
 
+# Task k sorted array.
+
+arr = [25, 34, 35, 80, 12, 11, 12]
+
+def insSort(arr):
+    i = j = k = 0
+    for i in range(len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and (arr[j] > key):
+            arr[j + 1] = arr[j]
+            j = j - 1
+        arr[j + 1] = key
+
+insSort(arr)
+print(arr)
