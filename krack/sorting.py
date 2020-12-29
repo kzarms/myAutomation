@@ -86,7 +86,7 @@ def bubbleSortRec(arr):
 
 bubbleSortRec(arr)
 
-arr = [64, 34, 25, 12, 22, 11, 90]
+arr = [64, 34, 25, 80, 12, 22, 11]
 
 # Insertion sort
 
@@ -105,5 +105,74 @@ def insertionSort(arr):
 print(insertionSort(arr))
 
 
+#### Merge sort!
+# First of all device and couquer
+
+def dac_max(arr, index, lenth):
+    max = -1
+    if index >= lenth - 2:
+        if arr[index] > arr[index + 1]:
+            return arr[index]
+        else:
+            return arr[index + 1]
+    max = dac_max(arr, index+1, lenth)
+
+    if arr[index] > max:
+        return arr[index]
+    else:
+        return max
+
+print(dac_max(arr, 0, 7))
+
+def dac_min(arr, index, lenth):
+    min = 0
+
+    if index >= lenth - 2:
+        if arr[index] > arr[index + 1]:
+            return arr[index]
+        else:
+            arr[index + 1]
+
+    min = dac_min(arr, index + 1, lenth)
+
+    if arr[index] < min:
+        return arr[index]
+    else:
+        return min
+
+print(dac_min(arr, 0, 7))
 
 
+# merge sort
+arr = [64, 34, 25, 80, 12, 22, 11]
+def mergSort(arr):
+    if len(arr) > 1:
+        mid = len(arr)//2
+        L = arr[:mid]
+        R = arr[mid:]
+
+        mergSort(L)
+        mergSort(R)
+
+        i = j = k = 0
+
+        while (i < len(L)) and (j < len(R)):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+mergSort(arr)
+print(arr)
