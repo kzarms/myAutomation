@@ -69,3 +69,19 @@ def bubbleSort(arr):
 
 
 print(bubbleSort(arr))
+
+
+def bubbleSortRec(arr):
+    n = len(arr)
+
+    if n == 1:
+        return arr
+
+    for i in range(n - 1):
+        if arr[i] > arr[i + 1]:
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+
+    return bubbleSortRec(arr[:-1])
+
+
+bubbleSortRec(arr)
