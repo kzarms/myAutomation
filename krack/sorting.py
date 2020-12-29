@@ -85,3 +85,25 @@ def bubbleSortRec(arr):
 
 
 bubbleSortRec(arr)
+
+arr = [64, 34, 25, 12, 22, 11, 90]
+
+# Insertion sort
+
+def insertionSort(arr):
+    temp_arr = arr[:]
+
+    for i in range(1, len(temp_arr)):
+        key = temp_arr[i]
+        j = i - 1
+        while j >= 0 and key < temp_arr[j]:
+            temp_arr[j+1] = temp_arr[j]
+            j -= 1
+        temp_arr[j+1] = key
+    return temp_arr
+
+print(insertionSort(arr))
+
+
+
+
