@@ -218,3 +218,52 @@ def myMS(arr):
 arr = [64, 34, 25, 80, 12, 22, 11]
 myMS(arr)
 print(arr)
+
+
+############ Merge iterative
+
+def msi(arr):
+    size = 1
+    while size < (len(arr) - 1):
+        left = 0
+        while left < len(arr) - 1:
+            mid = min((size + left -1), (len(arr) - 1))
+            right = min((size*2 + left -1), (len(arr) - 1))
+
+            merge(arr, left, mid, right)
+            left = left + size*2
+        size = 2*size
+
+def merge(arr, l, m, r):
+    n1 = m - l + 1
+    n2 = r - m
+    L = [0]*n1
+    R = [0]*n2
+
+    for i in range(n1):
+        L[i] = arr[l + i]
+    for i in range(n2):
+        R[i] = arr[m + i + 1]
+
+    i, j, k = 0, 0, l
+    while (i < n1) and (j < n2):
+        if L[i] < R[j]:
+            arr[k] = L[i]
+            i += 1
+        else:
+            arr[k] = R[j]
+            j += 1
+        k += 1
+
+    while i < n1:
+        arr[k] = L[i]
+        i += 1
+        k += 1
+    while j < n2:
+        arr[k] = R[j]
+        j += 1
+        k += 1
+
+arr = [64, 34, 25, 80, 12, 22, 11]
+msi(arr)
+print(arr)
