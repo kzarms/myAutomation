@@ -382,3 +382,26 @@ def bucketSort(arr):
     return result
 
 print(bucketSort(arr))
+
+
+#### Sort numbers in different machines
+
+m1 = [30, 40, 50]
+m2 = [35, 45]
+m3 = [10, 60, 70, 80, 100]
+
+from heapq import *
+
+def sortStreams(*m):
+    minHeap = []
+    result = []
+
+    k = 0
+    for stream in m:
+        for i in range(len(stream)):
+            heappush(minHeap, stream[i])
+
+    return minHeap
+
+print(sortStreams(m1, m2, m3))
+
