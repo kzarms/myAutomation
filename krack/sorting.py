@@ -330,3 +330,23 @@ arr = [25, 34, 35, 80, 12, 11, 16]
 
 print(qsort(arr))
 
+# Heapsort
+
+def heapify(arr, n, i):
+    largest = i
+    l = 2*i + 1
+    r = 2*i + 2
+
+    if l < n and arr[l] > arr[largest]:
+        largest = l
+    if r < n and arr[r] > arr[largest]:
+        largest = r
+    # replace
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+arr = [25, 34, 35, 80, 12, 11, 16]
+
+print(heapify(arr, 7, 0))
+print(arr)
