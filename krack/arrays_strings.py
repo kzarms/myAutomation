@@ -296,3 +296,32 @@ print(my_rotation_check2("testblock", "bolcktest"))
 print(my_rotation_check(s1, s2))
 
 print(my_rotation_check2(s1, s2))
+
+
+# Find the closest pari between 2 sorted arrays.
+
+a = [1, 4, 5, 7]
+b = [10, 20, 30, 40]
+x = 30
+
+def findClosestPair(a, b, x):
+    resultList = [x]
+    myhash = {}
+    for i in a:
+        for j in b:
+            s = i + j
+            resultList.append(s)
+            myhash[s] = [i, j]
+
+    resultList.sort()
+    index = resultList.index(x)
+
+    l = x - resultList[index - 1]
+    r = resultList[index + 1] - x
+
+    if l < r:
+        return myhash[resultList[index - 1]]
+    else:
+        return myhash[resultList[index + 1]]
+print(findClosestPair(a, b, x))
+
