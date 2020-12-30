@@ -350,3 +350,35 @@ arr = [25, 34, 35, 80, 12, 11, 16]
 
 print(heapify(arr, 7, 0))
 print(arr)
+
+
+arr = [0.1, 0.45, 0.123, 0.78, 0.56, 0.665, 0.343, 0.03, 0.46, 0.221]
+
+def insort(arr):
+    for i in range(1, len(arr)):
+        up = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > up:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j + 1] = up
+    return arr
+
+def bucketSort(arr):
+
+    buckets = [[], [], [], [], [], [], [], [], [], []]
+    result = []
+    for i in arr:
+        index = int(i*10)
+        buckets[index].append(i)
+
+    for i in range(len(buckets)):
+        buckets[i] = insort(buckets[i])
+
+    for i in range(len(buckets)):
+        for j in buckets[i]:
+            result.append(j)
+
+    return result
+
+print(bucketSort(arr))
