@@ -368,4 +368,33 @@ def findMinSumm(arr, x):
 
 print(findMinSumm(arr, x))
 
+#### Turn the array into BST
 
+class node():
+
+    def __init__(self, data=None):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def arrtoBST(arr):
+    if not arr: return arr
+
+    mid = len(arr)//2
+
+    root = node(arr[mid])
+    root.left = arrtoBST(arr[:mid])
+    root.right = arrtoBST(arr[mid+1:])
+
+    return root
+
+def printN(node):
+    if not node:
+        return
+    print(node.data)
+    printN(node.left)
+    printN(node.right)
+
+arr = [1, 2, 3, 4, 5, 6, 7]
+root = arrtoBST(arr)
+printN(root)
