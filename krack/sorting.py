@@ -310,3 +310,23 @@ def insSort(arr):
 
 insSort(arr)
 print(arr)
+
+
+# Quick sort
+
+def qsort(arr):
+    if not arr:
+        return arr
+
+    pivot = arr[len(arr)//2]
+
+    head = qsort([x for x in arr if x < pivot])
+    tail = qsort([x for x in arr if x > pivot])
+    return head + [x for x in arr if x == pivot] + tail
+
+
+
+arr = [25, 34, 35, 80, 12, 11, 16]
+
+print(qsort(arr))
+
