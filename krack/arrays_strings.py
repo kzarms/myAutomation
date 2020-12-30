@@ -325,3 +325,23 @@ def findClosestPair(a, b, x):
         return myhash[resultList[index + 1]]
 print(findClosestPair(a, b, x))
 
+def pclosest(a, b, x):
+
+    i = 0
+    j = len(b) - 1
+    diff = 2**30
+
+    while (i < len(a) and j >= 0 ):
+        if abs(a[i] + b[j] - x) < diff:
+            res_i = i
+            res_j = j
+            diff = abs(a[i] + b[j] - x)
+        if a[i] + b[j] > x:
+            j -= 1
+        else:
+            i += 1
+    return a[res_i], b[res_j]
+
+print(pclosest(a, b, x))
+
+
