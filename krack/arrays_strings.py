@@ -345,3 +345,27 @@ def pclosest(a, b, x):
 print(pclosest(a, b, x))
 
 
+arr = [10, 22, 28, 29, 30, 40]
+x = 54
+
+def findMinSumm(arr, x):
+
+    i = 0
+    j = len(arr) - 1
+    diff = 2**30
+
+    while i < len(arr) and j >= 0:
+        if abs(arr[i] + arr[j] - x) < diff:
+            res_i = i
+            res_j = j
+            diff = abs(arr[i] + arr[j] - x)
+
+        if arr[i] + arr[j] > x:
+            j -= 1
+        else:
+            i += 1
+    return arr[res_i], arr[res_j]
+
+print(findMinSumm(arr, x))
+
+
