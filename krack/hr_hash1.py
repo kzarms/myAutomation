@@ -80,3 +80,30 @@ print(sherlockAndAnagrams(s))
 
 s = 'kkkk'
 print(sherlockAndAnagrams(s))
+
+
+####### Piking numbers ############
+
+a = [4, 6, 5, 3, 3, 1]
+
+a = [1, 1, 1, 1, 1]
+
+def pickingNumbers(a):
+    a.sort()
+
+    longest = count = 0
+    curr_min = a[0]
+
+    for i in range(len(a)):
+        if curr_min == a[i] or curr_min+1 == a[i]:
+            count += 1
+        else:
+            if longest < count:
+                longest = count
+            curr_min = a[i]
+            count = 1
+    if longest < count:
+        longest = count
+    return longest
+
+print(pickingNumbers(a))
