@@ -107,3 +107,62 @@ def pickingNumbers(a):
     return longest
 
 print(pickingNumbers(a))
+
+
+#### Cliemb The leader board #####
+
+ranked = [100, 100, 50, 40, 40, 20, 10]
+player = [5, 25, 50, 120]
+
+def climbingLeaderboard(ranked, player):
+
+    def rankCalc(ranked):
+        current_rank = {}
+        score = ranked[0]
+        rank = 1
+        for i in range(len(ranked)):
+            if ranked[i] == score:
+                if ranked[i] not in current_rank:
+                    current_rank[ranked[i]] = rank
+            else:
+                rank += 1
+                score = ranked[i]
+                current_rank[ranked[i]] = rank
+        return current_rank
+
+    def rs(ranked):
+        tempList = list(set(ranked))
+        tempList.sort(reverse=True)
+        h = {k:v for v,k in enumerate(tempList, 1)}
+        return h
+
+    runk_result = []
+    rs = set(ranked)
+
+    for i in range(len(player)):
+        rs.add(player[i])
+
+        runkList = rs(ranked)
+        runk_result.append(runkList[player[i]])
+        ranked.remove(player[i])
+
+    return runk_result
+
+
+print(climbingLeaderboard(ranked, player))
+
+
+def climbingLeaderboard(scores,alice):
+    currentrank = len(set(scores))
+    score_index = 0
+    highscore_index = len(scores)-1
+    while score_index!=len(alice):
+        while alice[score_index] > scores[highscore_index] and highscore_index>-1:
+            highscore_index-=1
+            if scores[highscore_index]!=scores[highscore_index+1]:
+                currentrank-=1
+        if alice[score_index] == scores[highscore_index]:
+            yield currentrank
+        else:
+            yield currentrank+1
+        score_index+=1
