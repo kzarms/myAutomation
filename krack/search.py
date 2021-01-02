@@ -60,3 +60,24 @@ def jsearch(arr, x):
     return -1
 
 print(jsearch(arr, x))
+
+### interpol search ###
+
+def interpolS(arr, lo, hi, x):
+
+    if (lo <= hi and x >= arr[lo] and x <= arr[hi]):
+
+        pos = lo + ((x - arr[lo])*(hi - lo)//(arr[hi] - arr[lo]))
+
+        if arr[pos] == x:
+            return pos
+
+        if arr[pos] < x:
+            return interpolS(arr, pos+1, hi, x)
+        else:
+            return interpolS(arr, lo, pos-1, x)
+    return -1
+
+print(interpolS(arr, 0, 15, 10))
+
+
