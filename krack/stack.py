@@ -95,3 +95,49 @@ def calcSpan2(price):
     print(S)
 
 calcSpan2(price)
+
+
+####### Next greater element ##########
+
+arr = [11, 13, 21, 3, 17, 22, 8, 1]
+def nge(arr):
+    result = []
+    for i in range(0, len(arr)):
+        next = -1
+        for j in range(i + 1, len(arr)):
+            if arr[i] < arr[j]:
+                next = arr[j]
+                break
+        result.append(next)
+
+    print(result)
+
+nge(arr)
+
+
+def nge2(arr):
+    stack = []
+    stack.append(arr[0])
+    result = []
+
+    for i in range(1, len(arr)):
+        next = arr[i]
+
+        if len(stack) > 0:
+            el = stack.pop()
+            while el < next:
+                result.append([el, next])
+                if len(stack) == 0:
+                    break
+                el = stack.pop()
+            if el > next:
+                stack.append(el)
+
+        stack.append(next)
+    while len(stack) > 0:
+        el = stack.pop()
+        result.append([el, -1])
+
+    print(result)
+
+nge2(arr)
