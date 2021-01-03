@@ -141,3 +141,20 @@ def nge2(arr):
     print(result)
 
 nge2(arr)
+
+#### Tower of Hanoi #####
+
+# reqursive
+
+def ToHr(n, src, dst, aux):
+    if n == 1:
+        print(f"Move disk {n} from {src} to destination {dst}")
+        return
+
+    ToHr(n-1, src, aux, dst)
+    print(f"Move disk {n} from {src} to destination {dst}")
+    ToHr(n-1, aux, dst, src)
+
+n = 4
+ToHr(n, "A", "B", "C")
+
