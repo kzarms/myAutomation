@@ -36,14 +36,24 @@ s = myStack()
 s.push(6)
 s.push(3)
 s.push(4)
-s
-s.pop()
-s
 
 
-arr
-*arr
+s = '*-A/BC-/AKL'
 
-print("".join(str(arr)))
 
-arr
+def pefix(s):
+    stack = []
+    operators = set(['+', '-', '*', '/', '^'])
+
+    s = s[::-1]
+    for i in s:
+        if i in operators:
+            a = stack.pop()
+            b = stack.pop()
+            stack.append(a+b+i)
+        else:
+            stack.append(i)
+    print(stack)
+
+pefix(s)
+
