@@ -57,3 +57,41 @@ def pefix(s):
 
 pefix(s)
 
+
+def spanCalc(price, n, S):
+
+    S[0] = 1
+
+    for i in range(1, n):
+        S[i] = 1
+        j = i - 1
+        while (j >= 0) and (price[i] >= price[j]):
+            S[i] += 1
+            j -= 1
+    print(S)
+
+price = [10, 4, 5, 90, 120, 80]
+n = len(price)
+S = [None] * n
+
+spanCalc(price, n, S)
+
+
+def calcSpan2(price):
+
+    n = len(price)
+    S = [0 for x in range(n)]
+    S[0] = 1
+
+    stack = []
+    stack.append(0)
+
+    for i in range(1, n):
+        while len(stack) > 0 and price[stack[-1]] <= price[i]:
+            stack.pop()
+        S[i] = i + 1 if len(stack) <= 0 else (i - stack[-1])
+        stack.append(i)
+
+    print(S)
+
+calcSpan2(price)
