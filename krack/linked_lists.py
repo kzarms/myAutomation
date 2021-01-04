@@ -82,7 +82,7 @@ def sumList(a, b):
     temp_b = b.get()[::-1]
 
     sum = int("".join(temp_a)) + int("".join(temp_b))
-    sumL = list(str(sum))
+    sumL = list(str(sum))[::-1]
     c = LinkedList()
     for el in sumL:
         c.append(int(el))
@@ -90,3 +90,17 @@ def sumList(a, b):
     return c
 
 print(sumList(a, b))
+
+def sumList2(a, b):
+    c = LinkedList()
+    register = 0
+    for i, j in zip(a.get(), b.get()):
+        sum = int(i) + int(j)
+        c.append(sum % 10 + register)
+        register = 0
+        if sum > 9:
+            register = 1
+    return c
+
+
+print(sumList2(a, b))
