@@ -49,7 +49,13 @@ class LinkedList:
             prev.next = curr.next
             curr.next = None
 
-
+    def get(self):
+        nodes = []
+        curr = self.head
+        while curr:
+            nodes.append(repr(curr))
+            curr = curr.next
+        return nodes
 
 my_list = LinkedList()
 
@@ -61,3 +67,26 @@ my_list.append("c")
 
 my_list
 
+a = LinkedList()
+a.append(7)
+a.append(1)
+a.append(6)
+
+b = LinkedList()
+b.append(5)
+b.append(9)
+b.append(2)
+
+def sumList(a, b):
+    temp_a = a.get()[::-1]
+    temp_b = b.get()[::-1]
+
+    sum = int("".join(temp_a)) + int("".join(temp_b))
+    sumL = list(str(sum))
+    c = LinkedList()
+    for el in sumL:
+        c.append(int(el))
+
+    return c
+
+print(sumList(a, b))
