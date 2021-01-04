@@ -104,3 +104,21 @@ def sumList2(a, b):
 
 
 print(sumList2(a, b))
+
+from collections import deque
+
+q = deque()
+
+q.append("a")
+q.append("b")
+
+print(q)
+
+q.appendleft("c")
+print(q)
+
+q.popleft()
+print(q)
+q.pop()
+print(q)
+
