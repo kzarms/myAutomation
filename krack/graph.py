@@ -98,5 +98,71 @@ g.BFS(2)
 
 
 g.DFS(2)
+g.addEdge(0, 1)
+
+############ TSP ###############
+
+class Graph2():
+
+    def __init__(self):
+        self.graph = {}
+
+    def addEdge(self, n, links):
+        self.graph[n] = links
+
+    def __repr__(self):
+        return str(self.graph)
+
+    def getNode(self, n):
+        if n in self.graph:
+            return self.graph[n]
+        else:
+            return -1
+    def getCost(self, a, b):
+        return self.graph[a][b]
+
+
+citys = Graph2()
+citys.addEdge(1, {2:10, 3:15, 4:20})
+citys.addEdge(2, {1:10, 3:35, 4:25})
+citys.addEdge(3, {1:15, 2:35, 4:30})
+citys.addEdge(4, {1:20, 2:25, 3:30})
+
+
+def permut(a, l, r):
+    if l == r:
+        return a
+    else:
+        for i in range(l, r + 1):
+            a[l], a[i] = a[i], a[l]
+            permut(a, l + 1, r)
+            a[l], a[i] = a[i], a[l]
+
+
+# print(permut(["a","b","c"], 0, 2))
+
+import itertools
+
+def brutForse(citys):
+    routes = list(itertools.permutations([2,3,4]))
+    trips = []
+    for route in routes:
+        trip = [1]
+        trip = trip + list(route)
+        trip.append(1)
+        trips.append(trip)
+
+    sumList = []
+    for trip in trips:
+        sum = 0
+        for i in range(0, 4):
+            sum += citys.getCost(trip[i], trip[i+1])
+        sumList.append(sum)
+
+    print(sumList)
+
+
+brutForse(citys)
+
 
 
