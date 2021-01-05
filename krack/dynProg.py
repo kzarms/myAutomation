@@ -87,3 +87,52 @@ def catBin(n):
     return int(catalanB(2*n, n)/(n +1))
 
 print(catBin(5))
+
+
+
+###### Gold meiner #######
+
+mat = [
+    [1, 3, 3],
+    [2, 1, 4],
+    [0, 6, 4]
+]
+
+len(mat[0])
+
+
+def gold(mat):
+
+    n = len(mat)
+    m = len(mat[0])
+
+    goldTable = [[0 for i in range(n)] for j in range(m)]
+
+    for col in range(n):
+        for row in range(m):
+            if col == (n - 1):
+                right = 0
+            else:
+                right = mat[row][col + 1]
+
+            if row == 0 or col == (n - 1):
+                right_up = 0
+            else:
+                right_up = mat[row - 1][col + 1]
+
+            if row == (m - 1) or col == (n - 1):
+                right_dw = 0
+            else:
+                right_dw = mat[row + 1][col + 1]
+
+            goldTable[row][col] = goldTable[row][col-1] + max(right, right_up, right_dw)
+
+    res = goldTable[0][2]
+    for i in range(m):
+        res = max(res, goldTable[i][2])
+
+    return res
+
+print(gold(mat))
+
+
