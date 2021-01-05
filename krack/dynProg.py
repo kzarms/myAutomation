@@ -103,36 +103,60 @@ len(mat[0])
 
 def gold(mat):
 
-    n = len(mat)
-    m = len(mat[0])
+    m = len(mat)
+    n = len(mat[0])
 
-    goldTable = [[0 for i in range(n)] for j in range(m)]
+    goldTable = [[0 for i in range(n + 1)] for j in range(m)]
 
     for col in range(n):
         for row in range(m):
-            if col == (n - 1):
+            if col == n:
                 right = 0
             else:
-                right = mat[row][col + 1]
+                right = mat[row][col]
 
-            if row == 0 or col == (n - 1):
+            if row == 0 or col == n:
                 right_up = 0
             else:
-                right_up = mat[row - 1][col + 1]
+                right_up = mat[row - 1][col]
 
-            if row == (m - 1) or col == (n - 1):
+            if row == (m - 1) or col == n:
                 right_dw = 0
             else:
-                right_dw = mat[row + 1][col + 1]
+                right_dw = mat[row + 1][col]
 
-            goldTable[row][col] = goldTable[row][col-1] + max(right, right_up, right_dw)
+            goldTable[row][col+1] = goldTable[row][col] + max(right, right_up, right_dw)
 
-    res = goldTable[0][2]
+    res = goldTable[0][3]
     for i in range(m):
-        res = max(res, goldTable[i][2])
+        res = max(res, goldTable[i][3])
 
     return res
 
 print(gold(mat))
 
+##### Conis ######
+
+def counts(arr, n):
+
+    m = len(arr)
+    table = [[0 for x in range(m)] for x in range(n + 1)]
+
+    for i in range(m):
+        table[0][i] = 1
+
+    for i in range(1, n+1):
+        for j in range(m):
+            x = table[i - arr[j]][j] if i - arr[j] >= 0 else 0
+
+            y = table[i][j-1] if j >= 1 else 0
+
+            table[i][j] = x + y
+    return table[n][m-1]
+
+
+arr = [1, 2, 3]
+n = 4
+
+print(counts(arr, n))
 
