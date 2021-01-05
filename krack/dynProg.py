@@ -1,8 +1,9 @@
 ####### Ugly numbers ########
 
+
 def getNthUglyNo(n):
 
-    ugly = [0]*n
+    ugly = [0] * n
     ugly[0] = 1
 
     i2 = i3 = i5 = 0
@@ -26,5 +27,63 @@ def getNthUglyNo(n):
 
     return ugly[-1]
 
+
 n = 150
 print(getNthUglyNo(n))
+
+###### Catalan number #######
+
+n = 5
+
+
+def catNum(n):
+    if n <= 1:
+        return 1
+    res = 0
+    for i in range(n):
+        res += catNum(i) * catNum(n - i - 1)
+
+    return res
+
+
+print(catNum(n))
+
+
+def dynCatNum(n):
+    if n == 0 or n == 1:
+        return 1
+
+    catalan = [0 for i in range(n + 1)]
+
+    catalan[0] = 1
+    catalan[1] = 1
+
+    for i in range(2, n + 1):
+        catalan[i] = 0
+        for j in range(i):
+            catalan[i] += catalan[j]
+            catalan[i] *= catalan[i - j - 1]
+
+    return catalan[n]
+
+
+print(dynCatNum(5))
+
+
+# Binomical coefficient
+
+def catalanB(n, k):
+    if k > (n - k):
+        k = n - k
+
+    res = 1
+
+    for i in range(k):
+        res = res * (n - i)
+        res = res / (i + 1)
+    return res
+
+def catBin(n):
+    return int(catalanB(2*n, n)/(n +1))
+
+print(catBin(5))
