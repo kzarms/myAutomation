@@ -398,3 +398,23 @@ def printN(node):
 arr = [1, 2, 3, 4, 5, 6, 7]
 root = arrtoBST(arr)
 printN(root)
+
+#### Subset problem #####
+
+arr = [3, 34, 4, 12, 5, 2]
+x = 9
+
+def subSet(arr, x):
+    h = {}
+    for i in range(len(arr)):
+        if x - arr[i] in h:
+            return x - arr[i], arr[i]
+        else:
+            h[arr[i]] = 1
+    return -1
+
+print(subSet(arr, x))
+
+x = 30
+print(subSet(arr, x))
+
