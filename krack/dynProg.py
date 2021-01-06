@@ -160,3 +160,48 @@ n = 4
 
 print(counts(arr, n))
 
+#### Subset sum problem ######
+
+arr = [3, 34, 4, 12, 5, 2]
+x = 9
+
+def subset(arr, x):
+    n = len(arr)
+    table = [[False for i in range(x + 1)] for j in range(n + 1)]
+
+    for i in range(n + 1):
+        table[i][0] = True
+
+    #for i in range(1, x + 1):
+    #     table[0][i]= False
+
+    for i in range(1, n + 1):
+        for j in range(1, x + 1):
+            if j < arr[i-1]:
+                table[i][j] = table[i-1][j]
+            if j >= arr[i-1]:
+                table[i][j] = table[i-1][j] or table[i-1][j - arr[i-1]]
+
+    return table[n][x]
+
+print(subset(arr, x))
+
+
+
+def subSet2(arr, x):
+    results = []
+
+    def find(subArr, x, path=()):
+        if not subArr:
+            return
+        if subArr[0] == x:
+            results.append(path + (subArr[0],))
+        else:
+            find(subArr[1:], x - subArr[0], path + (subArr[0],))
+            find(subArr[1:], x, path)
+    find(arr, x)
+    return results
+
+print(subSet2(arr, x))
+
+
