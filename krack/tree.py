@@ -19,13 +19,5 @@ class Tree():
 
         if not self.nodes:
             self.nodes.append(root)
-        else:
-            if not root.left:
-                root.left = append(root)
-            else:
-                root.right = append(root)
 
-t = Tree()
-t.appedn(5)
-t.append(4)
-t.append(6)
+
