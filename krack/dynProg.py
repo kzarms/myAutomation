@@ -205,3 +205,22 @@ def subSet2(arr, x):
 print(subSet2(arr, x))
 
 
+##### Number of steps #####
+
+memo = {}
+
+def stepsCount(n, memo):
+    if n < 0:
+        return 0
+    if n == 0:
+        return 1
+    if n in memo:
+        if memo[n] > -1:
+            return memo[n]
+
+    memo[n] = stepsCount(n - 1, memo) + stepsCount(n - 2, memo) + stepsCount(n - 3, memo)
+
+    return memo[n]
+
+print(stepsCount(12, memo))
+
