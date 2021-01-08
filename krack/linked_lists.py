@@ -57,6 +57,23 @@ class LinkedList:
             curr = curr.next
         return nodes
 
+    def revers(self):
+        prev = None
+        current = self.head
+        while current is not None:
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        self.head = prev
+
+    def printList(self):
+        temp = self.head
+        while temp:
+            print(temp.data, end=" ")
+            temp = temp.next
+
+
 my_list = LinkedList()
 
 my_list.append("a")
@@ -105,20 +122,19 @@ def sumList2(a, b):
 
 print(sumList2(a, b))
 
-from collections import deque
 
-q = deque()
+######### Revers linked list ##########
 
-q.append("a")
-q.append("b")
+l = LinkedList()
+l.append("a")
+l.append("b")
+l.append("c")
+l.append("d")
 
-print(q)
+print(l)
+l.revers()
 
-q.appendleft("c")
-print(q)
+l.printList()
 
-q.popleft()
-print(q)
-q.pop()
-print(q)
+
 
