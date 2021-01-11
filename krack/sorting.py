@@ -5,11 +5,10 @@ arr = [64, 25, 12, 22, 11]
 # My
 def selectSort(arr):
     result = []
-    temp_arr = arr[:]
-    for i in range(len(temp_arr)):
-        minVal = min(temp_arr)
+    for i in range(len(arr)):
+        minVal = min(arr)
         result.append(minVal)
-        temp_arr.remove(minVal)
+        arr.remove(minVal)
     return result
 
 
@@ -404,4 +403,22 @@ def sortStreams(*m):
     return minHeap
 
 print(sortStreams(m1, m2, m3))
+
+###### Sort an array of 0s, 1s and 2s ###########
+
+arr = [0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1]
+def sortBucket(arr):
+    tempList = [0, 0, 0]
+
+    for i in range(len(arr)):
+        tempList[arr[i]] += 1
+
+    result = []
+    for i in range(len(tempList)):
+        for j in range(tempList[i]):
+            result.append(i)
+
+    return result
+
+print(sortBucket(arr))
 
