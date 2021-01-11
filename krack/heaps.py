@@ -145,11 +145,28 @@ def findOccurance(arr, k):
             h[arr[i]] = 1
 
     result = {k: v for k, v in sorted(h.items(), key=lambda item: item[1])}
-    list(result.keys())[::-1]
+    print(list(result.keys())[:2-1:-1])
+
+###########   Find differens between two sets of elements ##########
 
 
-    sorted(h, key=val reverse=True)
-    sorted(h, )
+
+arr = [5, 8, 11, 40, 15]
+m = 2
+
+def findDiff(arr, m):
+    sorted(arr)
+    arrMin = sum(arr[:m])
+    arrMax = sum(arr[-2:])
+    return arrMax - arrMin
+
+
+import math
+
+def printHight(n):
+    return math.ceil(math.log2(n + 1)) - 1
+
+print(printHight(128))
 
 
 
