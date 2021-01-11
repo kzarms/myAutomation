@@ -78,3 +78,38 @@ def minCost2(arr):
 
 print(minCost2(arr))
 
+###### Max distinct elements ##########
+
+arr = [5, 7, 5, 5, 1, 2, 2]
+k = 3
+
+def maxDist(arr, k):
+    h = {}
+    for i in range(len(arr)):
+        if arr[i] in h:
+            h[arr[i]] += 1
+        else:
+            h[arr[i]] = 1
+
+    count = 0
+    minHeap = []
+    for key in h.keys():
+        if h[key] > 1:
+            heappush(minHeap, h[key])
+        else:
+            count += 1
+
+    while k > -1 and minHeap:
+        val = heappop(minHeap)
+        if val == 1:
+            count += 1
+        else:
+            k -= 1
+            val -= 1
+            heappush(minHeap, val)
+
+    return count
+
+
+print(maxDist(arr, k))
+
