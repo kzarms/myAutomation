@@ -113,3 +113,43 @@ def maxDist(arr, k):
 
 print(maxDist(arr, k))
 
+##### Pring all nodes less than value #####
+
+arr = [2, 3, 15, 5, 4, 45, 80, 6, 150, 77, 120]
+x = 15
+
+def printVal(arr, x):
+    heapify(arr)
+    restul = []
+    top = heappop(arr)
+    while arr and top < x:
+        restul.append(top)
+        top = heappop(arr)
+
+    heapify(restul)
+    print(restul)
+
+printVal(arr, x)
+
+###### Find k numbers with most okurance #####
+
+arr = [3, 1, 4, 4, 5, 2, 6, 1]
+k = 2
+
+def findOccurance(arr, k):
+    h = {}
+    for i in range(len(arr)):
+        if arr[i] in h:
+            h[arr[i]] += 1
+        else:
+            h[arr[i]] = 1
+
+    result = {k: v for k, v in sorted(h.items(), key=lambda item: item[1])}
+    list(result.keys())[::-1]
+
+
+    sorted(h, key=val reverse=True)
+    sorted(h, )
+
+
+
