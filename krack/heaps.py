@@ -38,3 +38,43 @@ def kLelement2(arr, k):
     return arr[len(arr) - k:]
 
 print(kLelement2(arr, k))
+
+
+### n ROPES #####
+
+from heapq import *
+
+arr = [2, 3, 4, 6]
+
+def minCost(arr):
+    heapify(arr)
+    totalCost = 0
+    while len(arr) > 1:
+        min1 = heappop(arr)
+        min2 = heappop(arr)
+        cost = min1 + min2
+        heappush(arr, cost)
+        totalCost += cost
+
+    return totalCost
+
+print(minCost(arr))
+
+arr = [2, 3, 4, 6]
+def minCost2(arr):
+
+    totalCost = 0
+
+    while len(arr) > 1:
+        min1 = min(arr)
+        arr.remove(min1)
+        min2 = min(arr)
+        arr.remove(min2)
+        cost = min1 + min2
+        totalCost += cost
+        arr.append(cost)
+
+    return totalCost
+
+print(minCost2(arr))
+

@@ -224,3 +224,31 @@ def stepsCount(n, memo):
 
 print(stepsCount(12, memo))
 
+# Magic index #
+
+arr = [-1, 0, 1, 2, 2, 2, 3, 3, 3, 4]
+
+def getMindex(arr):
+    for i in range(len(arr)):
+        if arr[i] == i:
+            return i
+    return -1
+
+def getMindex2(arr, s, e):
+    if s == e:
+        if arr[s] == s:
+            return s
+        else:
+            return -1
+
+    mid = (e - s)//2
+    if arr[mid] == mid:
+        return mid
+    if arr[mid] < mid:
+        return getMindex2(arr, s, mid)
+    else:
+        return getMindex2(arr, mid, e)
+
+
+
+print(getMindex2(arr, 0, len(arr)-1))
