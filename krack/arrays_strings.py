@@ -418,3 +418,27 @@ print(subSet(arr, x))
 x = 30
 print(subSet(arr, x))
 
+########## Array and sub array ##########
+
+arr = [11, 1, 13, 21, 3, 7]
+subArr = [11, 3, 7, 1]
+
+def checkSub(arr, subArr):
+    h = {}
+    for i in range(len(subArr)):
+        if subArr[i] in h:
+            h[subArr[i]] += 1
+        else:
+            h[subArr[i]] = 1
+
+    for i in range(len(arr)):
+        if arr[i] in h:
+            if h[arr[i]] == 0:
+                return False
+            h[arr[i]] -= 1
+
+    if sum(h.values()) > 0:
+        return False
+    return True
+
+print(checkSub(arr, subArr))
