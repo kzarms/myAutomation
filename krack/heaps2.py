@@ -74,3 +74,38 @@ maxHeap.insert(22)
 maxHeap.insert(9)
 
 maxHeap.Print()
+
+
+# K largest elements in the array #
+from heapq import *
+
+arr = [11, 3, 2, 1, 15, 5, 4, 45, 88, 96, 50, 45]
+k = 3
+
+def findKlarg(arr, k):
+    minHeap = []
+    heappush(minHeap, arr[0])
+
+    for i in range(1, len(arr)):
+        if len(minHeap) < k:
+            heappush(minHeap, arr[i])
+        else:
+            if minHeap[0] < arr[i]:
+                heappushpop(minHeap, arr[i])
+
+    return minHeap
+
+
+print(findKlarg(arr, k))
+
+def findKsmall(arr, k):
+    heapify(arr)
+    result = []
+    for i in range(k):
+        x = heappop(arr)
+        result.append(x)
+
+    return result
+
+print(findKsmall(arr, k))
+
