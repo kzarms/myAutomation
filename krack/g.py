@@ -17,6 +17,37 @@ def sumBitDiff(arr):
 
 print(sumBitDiff(arr))
 
+######## Modular exponent ##############
+
+
+x = 2
+y = 3
+p = 5
+
+91 % 5
+91 * 3 % 5
+
+
+def foo(x, y, p):
+    return (x**y) % p
+
+print(foo(2, 3, 5))
+
+def foo2(x, y, p):
+    # (ab) % mod p = ((a mod p)(b mod p)) mod p
+    res = 1
+    modX = x % p
+    while y > 0:
+        if y & 1:
+            res = (res * modX) % p
+        y = y // 2
+        modX = (modX * modX) % p
+
+    return res
+
+
+print(foo2(2, 3, 5))
+
 
 
 
