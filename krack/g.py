@@ -63,12 +63,26 @@ def findLargestWord(myDic, myStr):
         else:
             basicHash[i] = 1
 
+    maxVal = 0
     for el in myDic:
         tempHash = basicHash.copy()
-
+        count = 0
         for i in el:
             if i in tempHash:
-                tempHash -= 1
+                if tempHash[i] == 0:
+                    count = 0
+                    break
+                tempHash[i] -= 1
+                count += 1
+            else:
+                count = 0
+                break
+        if maxVal < count:
+            maxVal = count
+    return maxVal
+
+print(findLargestWord(myDic, mySrt))
+
 
 
 def constructString(dp, n, bCnt=1, cCnt=2):
