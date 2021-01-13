@@ -132,3 +132,48 @@ def contSrt2(n):
     return res
 
 print(contSrt2(3))
+
+
+############ find triplets in the array ###################
+
+arr = [0, -1, 2, -3, 1]
+
+def findtrpl(arr):
+    result = []
+    n = len(arr)
+    for i in range(0, n - 2):
+        for j in range(i + 1, n - 1):
+            for k in range(i + 2, n):
+                temp = [arr[i], arr[j], arr[k]]
+                if sum(temp) == 0:
+                    result.append(temp)
+
+    return result
+
+print(findtrpl(arr))
+
+
+def findtriplSort(arr):
+    result = []
+
+    n = len(arr)
+    arr.sort()
+
+    for i in range(n - 1):
+        l = i + 1
+        r = n - 1
+        x = arr[i]
+
+        while l < r:
+            temp = [arr[l], x, arr[r]]
+            if sum(temp) == 0:
+                result.append(temp)
+                l += 1
+                r -= 1
+            elif sum(temp) < 0:
+                l += 1
+            else:
+                r -= 1
+    return result
+
+print(findtriplSort(arr))
