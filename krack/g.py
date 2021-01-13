@@ -177,3 +177,49 @@ def findtriplSort(arr):
     return result
 
 print(findtriplSort(arr))
+
+
+# find selebrity #
+
+matrix = [
+    [ 0, 0, 1, 0 ],
+    [ 0, 0, 1, 0 ],
+    [ 0, 0, 0, 0 ],
+    [ 0, 0, 1, 0 ]
+]
+
+def findSel(martix):
+
+    s = []
+
+    for i in range(len(matrix)):
+        s.append(i)
+
+    A = s.pop()
+    B = s.pop()
+
+    while len(s) > 1:
+        if martix[A][B]:
+            A = s.pop()
+        else:
+            B = s.pop()
+
+    if len(s) == 0:
+        return -1
+
+    C = s.pop()
+
+    if matrix[C][A]:
+        C = A
+
+    if matrix[C][B]:
+        C = B
+
+    for i in range(len(matrix)):
+        if i != C and (martix[C][i] or (not martix[i][C])):
+            return -1
+
+    return C
+
+print(findSel(matrix))
+
