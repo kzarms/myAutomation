@@ -136,5 +136,29 @@ l.revers()
 
 l.printList()
 
+###### Find subsequence in the string #######
+
+a = "AGGTAB"
+b = "GXTXAYB"
+
+def lcs(a, b):
+    col = len(a)
+    row = len(b)
+
+    L = [[0 for i in range(col + 1)] for j in range(row + 1)]
+
+    for i in range(row + 1):
+        for j in range(col + 1):
+            if i == 0 or j == 0:
+                L[i][j] = 0
+            elif b[i - 1] == a[j - 1]:
+                L[i][j] = L[i - 1][j - 1] + 1
+            else:
+                L[i][j] = max(L[i - 1][j], L[i][j - 1])
+
+    return L[row][col]
+
+
+print(lcs(a, b))
 
 
