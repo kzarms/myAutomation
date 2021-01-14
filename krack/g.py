@@ -223,3 +223,41 @@ def findSel(martix):
 
 print(findSel(matrix))
 
+############ Strin is in to others ###########
+
+def isInterleaved(a, b, c):
+
+    col = len(a)
+    row = len(b)
+
+    if (col + row) != len(c):
+        return False
+
+    table = [ [False for i in range(col + 1)] for j in range(row + 1)]
+
+    for i in range(row + 1):
+        for j in range(col + 1):
+
+            if i == 0 or j == 0:
+                table[i][j] = True
+
+            # C[i] match to a but not to B
+            elif (a[i - 1] == c[i + j - 1] and
+                  b[j - 1] != c[i + j - 1]):
+                table[i][j] = table[i - 1][j]
+
+            # C[i] mathc to b but not to A
+            elif (a[i - 1] != c[i + j - 1] and
+                  b[j - 1] == c[i + j - 1]):
+                table[i][j] = table[i][j - 1]
+
+            # match both
+            elif (a[i - 1] == c[i + j - 1] and
+                  b[j - 1] == c[i + j - 1]):
+                table[i][j] = table[i - 1][j] or table[i][j - 1]
+
+    return table[col][row]
+
+print(isInterleaved("XY", "WZ", "WZXY"))
+
+
