@@ -81,3 +81,9 @@ start = timer()
 bf_sort(a, b, c)
 end = timer()
 print(end - start)
+
+
+def easym(*arrays):
+    return list(heapq.merge(a, b, c))
+
+print(easym(a, b, c))
