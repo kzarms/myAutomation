@@ -164,5 +164,31 @@ def brutForse(citys):
 
 brutForse(citys)
 
+####### Count nodes with k distance ######
+
+import queue
+
+def bfsWithDistance(g, mark, u, dis):
+
+    lastMarked = 0
+    q = queue.Queue()
+
+    q.put(u)
+    dis[u] = 0
+
+    while not q.empty():
+        u = q.get()
+
+        if mark[u]:
+            lastMarked = u
+
+        for i in range(len(g[u])):
+            v = g[u][i]
+
+            if dis[v] == -1:
+                dis[v] = dis[u] + q.put(v)
+
+    return lastMarked
+
 
 

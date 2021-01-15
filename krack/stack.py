@@ -158,3 +158,32 @@ def ToHr(n, src, dst, aux):
 n = 4
 ToHr(n, "A", "B", "C")
 
+mystk = [1, 2, 3, 4, 5]
+
+def revStack(mystk):
+    if mystk:
+        temp = mystk.pop()
+        revStack(mystk)
+        mystk.insert(0, temp)
+    return mystk
+
+print(revStack(mystk))
+mystk[::-1]
+
+
+
+from collections import deque
+
+ll = [1, 2, 3, 4, 3, 4, 2, 3, 2, 1, 3]
+k = 3
+
+def printKinLL(ll, k):
+
+    q = deque()
+    for i in range(len(ll)):
+        q.appendleft(ll[i])
+        if len(q) > k:
+            q.pop()
+    print(list(q)[::-1])
+
+printKinLL(ll, k)
